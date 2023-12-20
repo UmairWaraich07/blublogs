@@ -1,5 +1,6 @@
 import { Client, Account, ID } from "appwrite";
 import conf from "../conf/conf";
+import userService from "./user";
 
 class AuthService {
   client = new Client();
@@ -12,7 +13,7 @@ class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createUser({ email, password, username, fullName }) {
+  async registerUser({ email, password, username, fullName }) {
     try {
       const createdUser = await this.account.create(
         ID.unique(),
@@ -22,14 +23,22 @@ class AuthService {
         fullName
       );
       if (createdUser) {
-        // TODO: create that user in the DB
+        //  create that user in the DB
+        const createdDbUser = userService.createUser({
+          fullName,
+          username,
+          email,
+          id: createdUser.$id,
+        });
         // login the user
-        return this.loginUser({ email, password });
+        if (createdDbUser) {
+          return this.loginUser({ email, password });
+        }
       } else {
         return createdUser;
       }
     } catch (error) {
-      console.log(`Error while creating user :: APPWRITE :: ${error}`);
+      console.log(`Error while registering the user :: APPWRITE :: ${error}`);
     }
   }
 
