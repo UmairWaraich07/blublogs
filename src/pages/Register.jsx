@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Logo } from "../components";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -135,6 +135,12 @@ const Register = () => {
             Register your account
           </Button>
         </form>
+        <div className="text-center mt-6">
+          Already have an account?{" "}
+          <Link to="/login" className="text-accent hover:underline font-medium">
+            Login now
+          </Link>
+        </div>
       </div>
     </div>
   );

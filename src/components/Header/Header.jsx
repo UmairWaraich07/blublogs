@@ -1,10 +1,8 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Logo from "../Logo";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { lightMode, darkMode } from "../../store/themeSlice";
-import ProfileDropdown from "./ProfileDropdown";
-import Button from "../Button";
+import { Button, Logo, ProfileDropdown } from "../index";
 import { navItems } from "../../constant";
 
 const Header = () => {
@@ -21,7 +19,7 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex items-center justify-between p-4 px-10 ">
+    <header className="w-full flex items-center justify-between p-4 px-10 max-w-[1320px] mx-auto">
       <Link to="/">
         <Logo />
       </Link>
@@ -38,11 +36,11 @@ const Header = () => {
         <button
           className={`${
             mode === "light" ? "bg-dark" : "bg-light"
-          } w-6 h-6 rounded-full flex items-center justify-center`}
+          } w-6 h-6 rounded-full flex items-center justify-center p-[2px]`}
           onClick={handleTheme}
         >
           {mode === "light" ? (
-            <MoonIcon className="w-4 h-4 text-white" />
+            <MoonIcon className="w-6 h-6 text-white" />
           ) : (
             <SunIcon className="w-6 h-6" />
           )}

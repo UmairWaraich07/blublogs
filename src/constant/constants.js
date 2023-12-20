@@ -5,7 +5,7 @@ export const navItems = [
   },
   {
     name: "Categories",
-    url: "/categories",
+    url: "/categories/all",
   },
   {
     name: "Add Post",

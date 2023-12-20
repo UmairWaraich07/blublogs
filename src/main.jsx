@@ -10,7 +10,14 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import RootLayout from "./RootLayout.jsx";
-import { AddPost, Categories, Home, Login, Register } from "./pages/index.js";
+import {
+  AddPost,
+  Categories,
+  Home,
+  Login,
+  Register,
+  Profile,
+} from "./pages/index.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +27,8 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="add-post" element={<AddPost />} />
-        <Route path="categories" element={<Categories />} />
+        <Route path="categories/all" element={<Categories />} />
+        <Route path="profile/:id" element={<Profile />} />
       </Route>
     </>
   )

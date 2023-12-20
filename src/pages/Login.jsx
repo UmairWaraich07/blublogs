@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
 
 const Login = () => {
@@ -106,6 +106,16 @@ const Login = () => {
             Login
           </Button>
         </form>
+
+        <div className="text-center mt-6">
+          Don&apos;t have an account?{" "}
+          <Link
+            to="/register"
+            className="text-accent hover:underline font-medium"
+          >
+            Create one new
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const ProfileDropdown = () => {
       </div>
       {isOpen && (
         <div className="flex flex-col gap-1 bg-[#fffefe] shadow-md  absolute top-16 right-8 rounded-lg py-3">
-          <Link to="/profile" className="hover:bg-[#f5f5f5] px-4">
+          <Link to="/profile/123" className="hover:bg-[#f5f5f5] px-4">
             View Profile
           </Link>
           <button className="hover:bg-[#f5f5f5] px-4 " onClick={signout}>
