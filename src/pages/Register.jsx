@@ -120,19 +120,13 @@ const Register = () => {
           )}
           {error && <span className="text-red-600 text-sm"> {errors}</span>}
 
-          <Button
-            type="submit"
-            className="w-full mt-3"
-            bgColor="bg-dark"
-            textColor="text-light"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="w-full mt-3" disabled={isLoading}>
             {isLoading && (
               <span className="mr-2">
                 <ReloadIcon className="w-4 h-4 animate-spin" />
               </span>
             )}
-            Register your account
+            {isLoading ? "Registering your account" : "Register your account"}
           </Button>
         </form>
         <div className="text-center mt-6">

@@ -3,8 +3,8 @@ const Button = ({
   children,
   type = "button",
   className = "",
-  textColor = "text-dark",
-  bgColor = "bg-light",
+  textColor = "text-light",
+  bgColor = "bg-dark",
   disabled = false,
   onClick,
   ...props

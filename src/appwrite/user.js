@@ -1,4 +1,4 @@
-import { Databases, Client, ID } from "appwrite";
+import { Databases, Client } from "appwrite";
 import conf from "../conf/conf";
 
 class UserService {
@@ -18,7 +18,7 @@ class UserService {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteUsersCollectionId,
-        ID.unique(),
+        id,
         {
           accountId: id,
           email,

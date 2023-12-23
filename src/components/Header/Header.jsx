@@ -26,7 +26,7 @@ const Header = () => {
 
       <nav
         className="flex items-center justify-center gap-2 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
-      fixed top-6 right-1/2 translate-x-1/2 font-medium capitalize "
+      fixed top-6 right-1/2 translate-x-1/2 font-medium capitalize z-50 "
       >
         {navItems.map((item) => (
           <NavLink key={item.url} to={item.url} className="hover:opacity-75">
@@ -55,14 +55,14 @@ const Header = () => {
             <Button
               onClick={() => navigate("/login")}
               className="cursor-pointer"
+              bgColor="bg-light"
+              textColor="text-dark"
             >
               Login
             </Button>
             <Button
               onClick={() => navigate("/register")}
               className="cursor-pointer"
-              bgColor="bg-dark"
-              textColor="text-light"
             >
               Register
             </Button>

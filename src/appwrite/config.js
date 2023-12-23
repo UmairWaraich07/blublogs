@@ -1,5 +1,6 @@
 import { Databases, Client, Query, ID } from "appwrite";
 import conf from "../conf/conf";
+import fileService from "./file";
 
 class ConfigService {
   client = new Client();
@@ -21,31 +22,37 @@ class ConfigService {
     status,
     authorId,
   }) {
-    const categoryName = category.trim().toLowerCase();
-    const queries = [Query.equal("name", categoryName)];
-    const existingCategory = await this.databases.listDocuments(
-      conf.appwriteDatabaseId,
-      conf.appwriteCategoriesCollectionId,
-      queries
-    );
-    if (!existingCategory) {
-      const createdCategory = this.createCategory(categoryName);
-      if (!createdCategory) throw new Error("New category creation failed!");
+    try {
+      const categoryName = category.trim().toLowerCase();
+      const queries = [Query.equal("name", categoryName)];
+      const existingCategory = await this.getCategory(queries);
+      let categoryId;
+      if (existingCategory.documents.length > 0) {
+        categoryId = existingCategory.documents[0].$id;
+      } else {
+        const createdCategory = this.createCategory(categoryName);
+        if (!createdCategory) throw new Error("New category creation failed!");
+        categoryId = createdCategory.$id;
+      }
+      if (categoryId)
+        return await this.databases.createDocument(
+          conf.appwriteDatabaseId,
+          conf.appwritePostsCollectionId,
+          slug,
+          {
+            authorId,
+            title,
+            content,
+            category: categoryId,
+            status,
+            featuredImage,
+          }
+        );
+    } catch (error) {
+      const deletedFile = await fileService.deleteFile(featuredImage);
+      console.log(deletedFile);
+      console.log(`Error while creating the post :: APPWRITE :: ${error}`);
     }
-    if (categoryName)
-      return await this.databases.createDocument(
-        conf.appwriteDatabaseId,
-        conf.appwritePostsCollectionId,
-        slug,
-        {
-          authorId,
-          title,
-          content,
-          category: categoryName,
-          status,
-          featuredImage,
-        }
-      );
   }
 
   async deletePost(slug) {
@@ -117,8 +124,9 @@ class ConfigService {
   }
 
   async getCategory(queries = [Query.equal()]) {
+    console.log(queries);
     try {
-      await this.databases.listDocuments(
+      return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCategoriesCollectionId,
         queries

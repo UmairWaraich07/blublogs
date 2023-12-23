@@ -91,19 +91,13 @@ const Login = () => {
             <p className="text-red-600 text-sm"> {errors.password.message}</p>
           )}
           {error && <p className="text-red-600 text-sm"> {error}</p>}
-          <Button
-            type="submit"
-            className="w-full mt-3"
-            bgColor="bg-dark"
-            textColor="text-light"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="w-full mt-3" disabled={isLoading}>
             {isLoading && (
               <span className="mr-2">
                 <ReloadIcon className="w-4 h-4 animate-spin" />
               </span>
             )}
-            Login
+            {isLoading ? "Logging In..." : "Login"}
           </Button>
         </form>
 

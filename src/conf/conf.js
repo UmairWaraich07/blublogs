@@ -12,6 +12,7 @@ const conf = {
   appwriteCategoriesCollectionId: String(
     import.meta.env.VITE_APPWRITE_CATEGORIES_COLLECTION_ID
   ),
+  editorApiKey: String(import.meta.env.VITE_TINYMCE_EDITOR_API_KEY),
 };
 
 export default conf;
