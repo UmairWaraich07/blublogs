@@ -18,6 +18,7 @@ import {
   Register,
   Profile,
   EditPost,
+  EditProfile,
 } from "./pages/index.js";
 import {
   ProfilePosts,
@@ -66,6 +67,15 @@ const router = createBrowserRouter(
           <Route index element={<ProfilePosts />} />
           <Route path="saved" element={<ProfileSaveds />} />
         </Route>
+
+        <Route
+          path="profile/edit/:id"
+          element={
+            <ProtectedRoute authentication={true}>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="edit-post/:postId"

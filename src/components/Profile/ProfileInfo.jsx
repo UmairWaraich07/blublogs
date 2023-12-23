@@ -10,7 +10,7 @@ const ProfileInfo = ({ userData }) => {
         {userData.profileImage ? (
           <img
             src={fileService.getPostPreview(userData.profileImage)}
-            className="w-32 h-32 max-md:w-28 max-md:h-28 object-contain"
+            className="w-32 h-32 max-md:w-28 max-md:h-28 object-contain rounded-full"
           />
         ) : (
           <div
@@ -38,9 +38,7 @@ const ProfileInfo = ({ userData }) => {
           <CalendarIcon className="text-dark w-5 h-5" />
           <p className=" font-medium">{formatJoinDate(userData?.$createdAt)}</p>
         </div>
-        <p className="mt-4 font-inter">
-          Front end Developer Building the BluBlogs application
-        </p>
+        <p className="mt-4 font-inter">{userData?.bio}</p>
       </div>
     </>
   );

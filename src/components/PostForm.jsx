@@ -34,7 +34,6 @@ const PostForm = () => {
     setErr("");
     setIsLoading(true);
     try {
-      console.log(data.image[0]);
       const file = await fileService.uploadFile(data.image[0]);
       if (file) {
         const createdPost = await configService.createPost({
@@ -109,7 +108,7 @@ const PostForm = () => {
             setError("image", null); // Clear any previous errors
           };
           reader.onerror = () => {
-            setError("Failed to read image. Please try again.");
+            setError("image", "Failed to read image. Please try again.");
           };
           reader.readAsDataURL(file);
         }

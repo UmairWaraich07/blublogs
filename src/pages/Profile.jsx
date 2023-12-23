@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
+  console.log(userData);
+  const [loader, setLoader] = useState(true);
   const authStatus = useSelector((state) => state.auth.authStatus);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -14,9 +16,12 @@ const Profile = () => {
     (async () => {
       const data = await userService.getUser([Query.equal("$id", [id])]);
       setUserData(data.documents[0]);
+      setLoader(false);
     })();
   }, [id]);
-  return (
+  return loader ? (
+    <h1 className="text-6xl font-bold text-dark">Loading...</h1>
+  ) : (
     <div className="w-full mt-6">
       <Container>
         <div className="">
@@ -27,7 +32,7 @@ const Profile = () => {
             {authStatus && (
               <div className="w-full flex justify-end flex-1">
                 <Button
-                  onClick={() => navigate(`/edit-profile/${userData.$id}`)}
+                  onClick={() => navigate(`/profile/edit/${userData.$id}`)}
                   bgColor="bg-light"
                   textColor="text-dark"
                   className=""

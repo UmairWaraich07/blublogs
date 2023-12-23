@@ -11,6 +11,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProfilePosts from "./Profile/ProfilePosts";
 import ProfileSaveds from "./Profile/ProfileSaveds";
 import ProfileInfo from "./Profile/ProfileInfo";
+import Textarea from "./Textarea";
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   ProfilePosts,
   ProfileSaveds,
   ProfileInfo,
+  Textarea,
 };

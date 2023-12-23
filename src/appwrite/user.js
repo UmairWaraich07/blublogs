@@ -33,6 +33,26 @@ class UserService {
     }
   }
 
+  async editUser({ fullName, username, profileImage, bio, id }) {
+    try {
+      await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteUsersCollectionId,
+        id,
+        {
+          fullName,
+          username,
+          profileImage,
+          bio,
+        }
+      );
+      return true;
+    } catch (error) {
+      console.log(`Error while editing the user :: APPWRITE :: ${error}`);
+      return false;
+    }
+  }
+
   async getUser(queries = [Query.equal()]) {
     try {
       return await this.databases.listDocuments(

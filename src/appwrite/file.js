@@ -37,9 +37,9 @@ class FileService {
     }
   }
 
-  async getPostPreview(postId) {
+  getPostPreview(postId) {
     try {
-      this.storage.getFilePreview(conf.appwriteBucketId, postId);
+      return this.storage.getFilePreview(conf.appwriteBucketId, postId);
     } catch (error) {
       console.log(`Error while getting post preview :: APPWRITE :: ${error}`);
     }
