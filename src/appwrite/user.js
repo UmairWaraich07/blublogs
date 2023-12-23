@@ -1,4 +1,4 @@
-import { Databases, Client } from "appwrite";
+import { Databases, Client, Query } from "appwrite";
 import conf from "../conf/conf";
 
 class UserService {
@@ -30,6 +30,18 @@ class UserService {
       console.log(
         `Error while creating user in Database :: APPWRITE :: ${error}`
       );
+    }
+  }
+
+  async getUser(queries = [Query.equal()]) {
+    try {
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteUsersCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log(`Error while getting user from DB :: APPWRITE :: ${error}`);
     }
   }
 }

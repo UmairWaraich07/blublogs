@@ -17,7 +17,13 @@ import {
   Login,
   Register,
   Profile,
+  EditPost,
 } from "./pages/index.js";
+import {
+  ProfilePosts,
+  ProfileSaveds,
+  ProtectedRoute,
+} from "./components/index.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,10 +31,50 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />} />
-        <Route path="add-post" element={<AddPost />} />
-        <Route path="categories/all" element={<Categories />} />
-        <Route path="profile/:id" element={<Profile />} />
+        <Route
+          index
+          element={
+            <ProtectedRoute authentication={false}>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="add-post"
+          element={
+            <ProtectedRoute authentication={true}>
+              <AddPost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="categories/all"
+          element={
+            <ProtectedRoute authentication={false}>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile/:id"
+          element={
+            <ProtectedRoute authentication={false}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<ProfilePosts />} />
+          <Route path="saved" element={<ProfileSaveds />} />
+        </Route>
+
+        <Route
+          path="edit-post/:postId"
+          element={
+            <ProtectedRoute authentication={true}>
+              <EditPost />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </>
   )

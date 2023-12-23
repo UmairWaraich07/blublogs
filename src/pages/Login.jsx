@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [err, setErr] = useState("");
 
   const {
     register,
@@ -21,13 +21,12 @@ const Login = () => {
   } = useForm();
 
   const sumbit = async (data) => {
-    setError("");
+    // setErr("");
     setIsLoading(true);
     try {
       const session = await authService.loginUser(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        console.log({ userData });
         if (userData) {
           dispatch(login(userData));
           navigate("/");
@@ -35,7 +34,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(`Error while submitting the logged in data : ${error}`);
-      setError(error.message);
+      setErr(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -90,7 +89,7 @@ const Login = () => {
           {errors.password && (
             <p className="text-red-600 text-sm"> {errors.password.message}</p>
           )}
-          {error && <p className="text-red-600 text-sm"> {error}</p>}
+          {err && <p className="text-red-600 text-sm mt-1"> {err.message}</p>}
           <Button type="submit" className="w-full mt-3" disabled={isLoading}>
             {isLoading && (
               <span className="mr-2">

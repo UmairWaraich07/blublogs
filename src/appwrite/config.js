@@ -30,12 +30,12 @@ class ConfigService {
       if (existingCategory.documents.length > 0) {
         categoryId = existingCategory.documents[0].$id;
       } else {
-        const createdCategory = this.createCategory(categoryName);
+        const createdCategory = await this.createCategory(categoryName);
         if (!createdCategory) throw new Error("New category creation failed!");
         categoryId = createdCategory.$id;
       }
-      if (categoryId)
-        return await this.databases.createDocument(
+      if (categoryId) {
+        const createdPost = await this.databases.createDocument(
           conf.appwriteDatabaseId,
           conf.appwritePostsCollectionId,
           slug,
@@ -48,6 +48,9 @@ class ConfigService {
             featuredImage,
           }
         );
+        if (!createdPost) await fileService.deleteFile(featuredImage);
+        return createdPost;
+      }
     } catch (error) {
       const deletedFile = await fileService.deleteFile(featuredImage);
       console.log(deletedFile);

@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProfileIcon } from "../Icons";
 import authService from "../../appwrite/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authSlice";
 
 const ProfileDropdown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userData = useSelector((state) => state.auth.userData);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   useEffect(() => {
@@ -50,7 +51,10 @@ const ProfileDropdown = () => {
       </div>
       {isOpen && (
         <div className="flex flex-col gap-1 bg-[#fffefe] shadow-md  absolute top-16 right-8 rounded-lg py-3">
-          <Link to="/profile/123" className="hover:bg-[#f5f5f5] px-4">
+          <Link
+            to={`/profile/${userData.$id}`}
+            className="hover:bg-[#f5f5f5] px-4"
+          >
             View Profile
           </Link>
           <button className="hover:bg-[#f5f5f5] px-4 " onClick={signout}>

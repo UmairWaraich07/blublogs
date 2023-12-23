@@ -24,15 +24,16 @@ class AuthService {
       );
       if (createdUser) {
         //  create that user in the DB
-        const createdDbUser = userService.createUser({
+        const createdDbUser = await userService.createUser({
           fullName,
           username,
           email,
           id: createdUser.$id,
         });
+
         // login the user
         if (createdDbUser) {
-          return this.loginUser({ email, password });
+          return await this.loginUser({ email, password });
         }
       } else {
         return createdUser;
@@ -47,6 +48,7 @@ class AuthService {
       return await this.account.createEmailSession(email, password);
     } catch (error) {
       console.log(`Error while logging the user :: APPWRITE :: ${error}`);
+      throw new Error(error);
     }
   }
 

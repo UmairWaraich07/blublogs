@@ -11,7 +11,6 @@ const PostForm = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const userData = useSelector((state) => state.auth.userData);
-  console.log(userData.$id);
   const {
     register,
     watch,
@@ -211,8 +210,7 @@ const PostForm = () => {
           })}
         />
         <p className="text-lightBlue text-sm mt-1 font-inter max-w-[600px]">
-          Add one Category to describe what your question is about. You need to
-          press enter to add a category
+          Add one Category to describe what your question is about.
         </p>
       </div>
 

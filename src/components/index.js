@@ -7,6 +7,10 @@ import Input from "./Input";
 import Container from "./Container";
 import PostForm from "./PostForm";
 import Select from "./Select";
+import ProtectedRoute from "./ProtectedRoute";
+import ProfilePosts from "./Profile/ProfilePosts";
+import ProfileSaveds from "./Profile/ProfileSaveds";
+import ProfileInfo from "./Profile/ProfileInfo";
 
 export {
   Header,
@@ -18,4 +22,8 @@ export {
   Container,
   PostForm,
   Select,
+  ProtectedRoute,
+  ProfilePosts,
+  ProfileSaveds,
+  ProfileInfo,
 };
