@@ -103,22 +103,37 @@ class ConfigService {
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage, category, status }) {
+  async updatePost(slug, { content, featuredImage, status }) {
     try {
       this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwritePostsCollectionId,
         slug,
         {
-          title,
           content,
           featuredImage,
-          category,
           status,
         }
       );
     } catch (error) {
       console.log(`Error while updating the post :: APPWRITE :: ${error}`);
+    }
+  }
+
+  async updateViewCount(slug, { views }) {
+    try {
+      this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwritePostsCollectionId,
+        slug,
+        {
+          views,
+        }
+      );
+    } catch (error) {
+      console.log(
+        `Error while updating the view count :: APPWRITE :: ${error}`
+      );
     }
   }
 

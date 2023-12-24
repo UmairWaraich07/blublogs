@@ -19,17 +19,17 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex items-center justify-between p-4 px-10 max-w-[1320px] mx-auto">
+    <header className="w-full flex items-center justify-between py-4 px-10 max-w-[1320px] mx-auto">
       <Link to="/">
         <Logo />
       </Link>
 
       <nav
-        className="flex items-center justify-center gap-2 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
+        className="flex items-center justify-center gap-3 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
       fixed top-6 right-1/2 translate-x-1/2 font-medium capitalize z-50 "
       >
         {navItems.map((item) => (
-          <NavLink key={item.url} to={item.url} className="hover:opacity-75">
+          <NavLink key={item.url} to={item.url} className=" hover:opacity-75">
             {item.name}
           </NavLink>
         ))}

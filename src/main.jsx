@@ -19,6 +19,7 @@ import {
   Profile,
   EditPost,
   EditProfile,
+  Blog,
 } from "./pages/index.js";
 import {
   ProfilePosts,
@@ -37,6 +38,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute authentication={false}>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="blog/:id"
+          element={
+            <ProtectedRoute authentication={false}>
+              <Blog />
             </ProtectedRoute>
           }
         />
@@ -78,7 +87,7 @@ const router = createBrowserRouter(
         />
 
         <Route
-          path="edit-post/:postId"
+          path="edit-post/:id"
           element={
             <ProtectedRoute authentication={true}>
               <EditPost />

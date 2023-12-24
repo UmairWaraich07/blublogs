@@ -6,11 +6,13 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import configService from "../appwrite/config";
 import fileService from "../appwrite/file";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const PostForm = () => {
   const [err, setErr] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const userData = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate();
   const {
     register,
     watch,
@@ -41,6 +43,7 @@ const PostForm = () => {
           authorId: userData.$id,
           ...data,
         });
+        navigate(`/blog/${data.slug}`);
         console.log({ createdPost });
       }
     } catch (error) {

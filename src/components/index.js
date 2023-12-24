@@ -12,6 +12,13 @@ import ProfilePosts from "./Profile/ProfilePosts";
 import ProfileSaveds from "./Profile/ProfileSaveds";
 import ProfileInfo from "./Profile/ProfileInfo";
 import Textarea from "./Textarea";
+import HomeCoverSection from "./Home/HomeCoverSection";
+import Tag from "./Tag";
+import BlogPost from "./BlogPost";
+import BlogCover from "./Blog/BlogCover";
+import BlogDetails from "./Blog/BlogDetails";
+import BlogContent from "./Blog/BlogContent";
+import { TOC } from "./Blog/TOC";
 
 export {
   Header,
@@ -28,4 +35,11 @@ export {
   ProfileSaveds,
   ProfileInfo,
   Textarea,
+  HomeCoverSection,
+  Tag,
+  BlogPost,
+  BlogCover,
+  BlogDetails,
+  BlogContent,
+  TOC,
 };

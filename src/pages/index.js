@@ -6,6 +6,7 @@ import Register from "./Register";
 import Profile from "./Profile";
 import EditPost from "./EditPost";
 import EditProfile from "./EditProfile";
+import Blog from "./Blog";
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   Profile,
   EditPost,
   EditProfile,
+  Blog,
 };
