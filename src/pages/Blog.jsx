@@ -56,11 +56,8 @@ const Blog = () => {
       <BlogCover blog={postData} />
       <Container>
         <BlogDetails postData={postData} />
-        <div className="mt-8 w-full grid grid-cols-12 gap-16">
-          {/* <div className="col-span-4">
-            <TOC />
-          </div> */}
-          <div className="col-span-12 border-x-[1.5px] border-b-[1.5px] rounded-b border-accent">
+        <div className="w-full flex items-center justify-center">
+          <div className="mt-8 w-full max-w-[680px]">
             <BlogContent content={postData?.content} />
             <BlogInteraction postData={postData} setPostData={setPostData} />
           </div>

@@ -8,22 +8,22 @@ export const formatJoinDate = (dateString) => {
 export function formatDateString(dateString) {
   const date = new Date(dateString);
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
-  const formattedDate = `${monthNames[date.getMonth()]}
- 
-${date.getDate()}, ${date.getFullYear()}`;
+  const formattedDate = `${
+    monthNames[date.getMonth()]
+  } ${date.getDate()}, ${date.getFullYear()}`;
 
   return formattedDate;
 }

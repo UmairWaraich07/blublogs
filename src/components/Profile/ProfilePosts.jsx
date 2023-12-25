@@ -2,7 +2,6 @@ import { useOutletContext } from "react-router-dom";
 import BlogPost from "../BlogPost";
 
 const ProfilePosts = () => {
-  // display all the posts with edit and delete button posted by the currentuser
   const userInfo = useOutletContext();
 
   return (

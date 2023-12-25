@@ -159,6 +159,20 @@ class ConfigService {
     }
   }
 
+  async fetchSavedPostsData(savedPostIds) {
+    try {
+      const posts = await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwritePostsCollectionId,
+        [Query.equal("$id", savedPostIds)]
+      );
+      return posts.documents; // Return fetched post documents
+    } catch (error) {
+      console.error("Error fetching saved posts:", error);
+      return []; // Return empty array if any error occurs
+    }
+  }
+
   async getCategory(queries = [Query.equal()]) {
     console.log(queries);
     try {

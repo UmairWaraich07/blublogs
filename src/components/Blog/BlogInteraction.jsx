@@ -76,7 +76,7 @@ const BlogInteraction = ({ postData, setPostData }) => {
   return loader ? (
     <h1 className="text-2xl text-dark">Loading...</h1>
   ) : (
-    <div className="py-2 px-10 border-t-[1.5px] border-accent flex items-center gap-10">
+    <div className="py-2 px-10 border-t border-b border-accent flex items-center gap-10">
       <div
         className="flex items-center gap-1 cursor-pointer group "
         onClick={handleLike}

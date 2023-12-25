@@ -12,7 +12,7 @@ const BlogContent = ({ content }) => {
         prose-blockquote:not-italic
         prose-blockquote:rounded-r-lg
         prose-li:marker:text-accent
-        p-10
+        py-6
     "
     >
       {parse(content)}
