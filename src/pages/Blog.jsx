@@ -1,18 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import configService from "../appwrite/config";
-import { BlogContent, BlogCover, BlogDetails, Container } from "../components";
+import {
+  BlogContent,
+  BlogCover,
+  BlogDetails,
+  BlogInteraction,
+  Container,
+} from "../components";
 
 const Blog = () => {
   const [postData, setPostData] = useState({});
+  const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
   const [isViewIncremented, setIsViewIncremented] = useState(false); // Track view increment
-  console.log(postData);
   const { id } = useParams();
 
   const incrementViewCount = useCallback(async () => {
     try {
-      await configService.updateViewCount(id, {
+      return await configService.updateViewCount(id, {
         views: postData.views + 1,
       });
     } catch (error) {
@@ -21,20 +27,27 @@ const Blog = () => {
   }, [id, postData.views]);
 
   useEffect(() => {
-    configService
-      .getPost(id)
-      .then((data) => setPostData(data))
-      .catch((err) => {
-        throw new Error(err.message);
-      })
-      .finally(() => setLoader(false));
-
-    // Increment view count after post data is fetched
-    if (!isViewIncremented && postData.views !== undefined) {
-      incrementViewCount();
-      setIsViewIncremented(true);
-    }
-  }, [id, isViewIncremented, incrementViewCount, postData.views]);
+    const fetchPostAndIncrement = async () => {
+      try {
+        const data = await configService.getPost(id);
+        if (data) {
+          setPostData(data);
+        } else {
+          navigate("/");
+        }
+        // increment the view count when post data is loaded
+        if (!isViewIncremented && postData.views !== undefined) {
+          incrementViewCount();
+          setIsViewIncremented(true);
+        }
+      } catch (error) {
+        throw new Error(error.message);
+      } finally {
+        setLoader(false);
+      }
+    };
+    fetchPostAndIncrement();
+  }, [id, navigate, isViewIncremented, postData.views, incrementViewCount]);
 
   return loader ? (
     <h1 className="text-6xl font-bold text-dark h-[70vh]">Loading...</h1>
@@ -47,8 +60,9 @@ const Blog = () => {
           {/* <div className="col-span-4">
             <TOC />
           </div> */}
-          <div className="col-span-12">
-            <BlogContent content={postData.content} />
+          <div className="col-span-12 border-x-[1.5px] border-b-[1.5px] rounded-b border-accent">
+            <BlogContent content={postData?.content} />
+            <BlogInteraction postData={postData} setPostData={setPostData} />
           </div>
         </div>
       </Container>

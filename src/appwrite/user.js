@@ -53,6 +53,24 @@ class UserService {
     }
   }
 
+  async updateSaved(id, { savedPosts }) {
+    try {
+      return await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteUsersCollectionId,
+        id,
+        {
+          savedPosts,
+        }
+      );
+    } catch (error) {
+      console.log(
+        `Error while editing the user saved posts :: APPWRITE :: ${error}`
+      );
+      return false;
+    }
+  }
+
   async getUser(queries = [Query.equal()]) {
     try {
       return await this.databases.listDocuments(

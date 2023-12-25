@@ -11,7 +11,8 @@ const BlogContent = ({ content }) => {
        prose-blockquote:border-accent
         prose-blockquote:not-italic
         prose-blockquote:rounded-r-lg
-        prose-li:marker:text-accent 
+        prose-li:marker:text-accent
+        p-10
     "
     >
       {parse(content)}

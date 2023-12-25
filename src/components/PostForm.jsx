@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import { Button, Input, Select } from "./index";
 import { useEffect, useState } from "react";
@@ -7,7 +8,7 @@ import configService from "../appwrite/config";
 import fileService from "../appwrite/file";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const PostForm = () => {
+const PostForm = ({ post }) => {
   const [err, setErr] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +30,7 @@ const PostForm = () => {
       content: "",
       image: null,
       status: "active",
+      category: "",
     },
   });
 
@@ -36,15 +38,43 @@ const PostForm = () => {
     setErr("");
     setIsLoading(true);
     try {
-      const file = await fileService.uploadFile(data.image[0]);
-      if (file) {
-        const createdPost = await configService.createPost({
-          featuredImage: file.$id,
-          authorId: userData.$id,
+      if (post) {
+        let file;
+        // upload and delete the image only if user has selected some image
+        if (typeof data.image === "object") {
+          // upload the image to the Bucket
+          file = data.image[0]
+            ? await fileService.uploadFile(data.image[0])
+            : null;
+          if (file) {
+            if (post.featuredImage) {
+              // delete the existing image from Bucket
+              await fileService.deleteFile(post.featuredImage);
+            }
+          }
+        }
+        // update the DB with edited values
+        const editedPost = await configService.editPost(post.$id, {
+          featuredImage: file?.$id ? file.$id : data.image,
           ...data,
         });
-        navigate(`/blog/${data.slug}`);
-        console.log({ createdPost });
+
+        if (editedPost) {
+          navigate(`/blog/${post.$id}`);
+        } else {
+          throw new Error("Error on editing the post");
+        }
+      } else {
+        const file = await fileService.uploadFile(data.image[0]);
+        if (file) {
+          const createdPost = await configService.createPost({
+            featuredImage: file.$id,
+            authorId: userData.$id,
+            ...data,
+          });
+          navigate(`/blog/${data.slug}`);
+          console.log({ createdPost });
+        }
       }
     } catch (error) {
       console.log(`Error while submitting Post Form Data : ${error}`);
@@ -84,6 +114,7 @@ const PostForm = () => {
 
         // Error handling for invalid files
         if (file) {
+          if (file.type === undefined) return;
           const allowedTypes = ["image/jpeg", "image/png", "image/gif"]; // Adjust as needed
           if (!allowedTypes.includes(file.type)) {
             setError("image", {
@@ -121,6 +152,17 @@ const PostForm = () => {
     return () => subscription.unsubscribe();
   }, [watch, setError, setValue]);
 
+  useEffect(() => {
+    if (post) {
+      setValue("title", post.title);
+      setValue("slug", post.$id);
+      setValue("content", post.content);
+      setValue("image", post.featuredImage);
+      setValue("category", post.category.name);
+      setValue("status", post.status);
+    }
+  }, [post, setValue]);
+
   return (
     <form
       className=" mt-6 flex flex-col items-start gap-4"
@@ -135,6 +177,7 @@ const PostForm = () => {
           {...register("title", {
             required: "Title is required",
           })}
+          disabled={post}
         />
         <p className="text-sm text-lightBlue mt-1 font-inter">
           Be specified and imagine you are sharing your thoughts with others
@@ -183,7 +226,7 @@ const PostForm = () => {
           type="file"
           className="max-w-[600px] py-3 w-full mt-1"
           {...register("image", {
-            required: "Image is required",
+            required: post ? false : "Image is required",
           })}
         />
 
@@ -200,6 +243,13 @@ const PostForm = () => {
             />
           </div>
         )}
+
+        {post.featuredImage && (
+          <img
+            src={fileService.getPostPreview(post.featuredImage)}
+            className="w-[300px] h-[200px] object-cover rounded-lg mt-4"
+          />
+        )}
       </div>
 
       <div className="w-full">
@@ -210,6 +260,7 @@ const PostForm = () => {
           {...register("category", {
             required: "Category is required",
           })}
+          disabled={post}
         />
         <p className="text-lightBlue text-sm mt-1 font-inter max-w-[600px]">
           Add one Category to describe what your question is about.
@@ -227,13 +278,21 @@ const PostForm = () => {
         />
       </div>
       {err && <p className="text-red-600 mt-2 text-sm">{err}</p>}
+
       <Button disabled={isLoading} type="submit" className="mt-5">
         {isLoading && (
           <span className="mr-2">
             <ReloadIcon className="w-4 h-4 animate-spin" />
           </span>
         )}
-        {isLoading ? "Posting..." : "Post"}
+
+        {post
+          ? isLoading
+            ? "Editing"
+            : "Edit"
+          : isLoading
+          ? "Posting..."
+          : "Post"}
       </Button>
     </form>
   );

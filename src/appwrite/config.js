@@ -58,7 +58,7 @@ class ConfigService {
     }
   }
 
-  async editPost({ slug, content, featuredImage, status }) {
+  async editPost(slug, { content, featuredImage, status }) {
     try {
       // handle the editpost
       await this.databases.updateDocument(
@@ -73,6 +73,7 @@ class ConfigService {
       );
       return true;
     } catch (error) {
+      await fileService.deleteFile(featuredImage);
       console.log(`Error while editing the post :: APPWRITE :: ${error}`);
       return false;
     }
@@ -103,23 +104,20 @@ class ConfigService {
     }
   }
 
-  async updatePost(slug, { content, featuredImage, status }) {
+  async updateLike(slug, { likedBy }) {
     try {
-      this.databases.updateDocument(
+      return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwritePostsCollectionId,
         slug,
         {
-          content,
-          featuredImage,
-          status,
+          likedBy,
         }
       );
     } catch (error) {
-      console.log(`Error while updating the post :: APPWRITE :: ${error}`);
+      console.log(`Error while updating the like :: APPWRITE :: ${error}`);
     }
   }
-
   async updateViewCount(slug, { views }) {
     try {
       this.databases.updateDocument(

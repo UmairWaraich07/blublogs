@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
-  console.log(userData);
+
   const [loader, setLoader] = useState(true);
   const authStatus = useSelector((state) => state.auth.authStatus);
   const navigate = useNavigate();
@@ -45,12 +45,14 @@ const Profile = () => {
 
           <div className="mt-12">
             <div className="flex items-center justify-center gap-4 border-t-[1.5px] border-b-[1.5px] py-2 border-dark/10">
-              <Link className="text-lg font-semibold">Posts</Link>
+              <Link className="text-lg font-semibold">
+                {userData.posts.length} Posts
+              </Link>
               <Link to="saved" className="text-lg font-semibold">
                 Saved
               </Link>
             </div>
-            <Outlet />
+            <Outlet context={userData} />
           </div>
         </div>
       </Container>

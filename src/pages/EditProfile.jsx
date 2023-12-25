@@ -97,27 +97,29 @@ const EditProfile = () => {
   }, [watch, setValue, setError]);
 
   const editProfile = async (data) => {
-    console.log({ data });
     setErr("");
     setIsLoading(true);
-    try {
-      const file = data.image[0]
-        ? await fileService.uploadFile(data.image[0])
-        : null;
-      if (file) {
-        if (profileData.profileImage) {
-          await fileService.deleteFile(profileData.profileImage);
-        }
 
-        const editedProfile = await userService.editUser({
-          id: id,
-          profileImage: file.$id,
-          fullName: data.name,
-          bio: data.bio,
-          username: data.username,
-        });
-        if (editedProfile) navigate(`/profile/${id}`);
+    try {
+      let file;
+      if (typeof data.image === "object") {
+        file = data.image[0]
+          ? await fileService.uploadFile(data.image[0])
+          : null;
+        if (file) {
+          if (profileData.profileImage) {
+            await fileService.deleteFile(profileData.profileImage);
+          }
+        }
       }
+      const editedProfile = await userService.editUser({
+        id: id,
+        profileImage: file?.$id ? file.$id : data.image,
+        fullName: data.name,
+        bio: data.bio,
+        username: data.username,
+      });
+      if (editedProfile) navigate(`/profile/${id}`);
     } catch (error) {
       console.log(`Error while submitting edit Profile Data : ${error}`);
     } finally {
@@ -179,12 +181,6 @@ const EditProfile = () => {
                 {errors.image.message}
               </span>
             )}
-            {profileData.profileImage && (
-              <img
-                src={fileService.getPostPreview(profileData.profileImage)}
-                className="w-[300px] h-[200px] object-cover rounded-lg mt-4"
-              />
-            )}
             {previewImage && (
               <div className="mt-4">
                 <img
@@ -193,6 +189,12 @@ const EditProfile = () => {
                   className="w-[300px] h-[200px] object-cover object-center rounded-lg"
                 />
               </div>
+            )}
+            {profileData.profileImage && (
+              <img
+                src={fileService.getPostPreview(profileData.profileImage)}
+                className="w-[300px] h-[200px] object-cover rounded-lg mt-4"
+              />
             )}
           </div>
 
