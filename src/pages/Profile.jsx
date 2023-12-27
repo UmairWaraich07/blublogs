@@ -31,13 +31,13 @@ const Profile = () => {
     })();
   }, [id]);
   return loader ? (
-    <h1 className="text-6xl font-bold text-dark">Loading...</h1>
+    <h1 className="text-5xl font-bold text-dark">Loading...</h1>
   ) : (
     <div className="w-full mt-8">
       <Container>
         <div className="">
           <div className="w-full flex max-sm:flex-col-reverse items-start justify-between gap-8 max-sm:gap-2">
-            <div className="flex max-md:flex-col gap-6 px-20">
+            <div className="flex max-md:flex-col gap-6 px-20 max-md:px-4">
               <ProfileInfo userData={userInfo} />
             </div>
             {userData?.$id === userInfo?.$id && (

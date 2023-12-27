@@ -13,6 +13,12 @@ const Categories = () => {
   const { id } = useParams();
   const [categories, setCategories] = useState([]);
 
+  //find the name of the active category using its id
+  const activeCategory = categories.filter((category) => category.$id === id);
+  const activeCategoryName =
+    activeCategory && activeCategory.length > 0
+      ? activeCategory[0]?.name
+      : "all";
   const { posts } = useSelector((state) => state.posts);
   const [categoryPosts, setCategoryPosts] = useState(posts || []);
 
@@ -51,21 +57,23 @@ const Categories = () => {
   return (
     <div className="w-full mt-8">
       <Container>
-        <div className="px-20">
-          <h1 className="text-6xl font-semibold">#all</h1>
-          <p className="font-inter text-dark/90 mt-1">
+        <div className="px-20 max-sm:px-0">
+          <h1 className="text-6xl max-sm:text-3xl font-semibold">
+            #{slug(activeCategoryName)}
+          </h1>
+          <p className="font-inter text-dark/90 max-sm:text-sm mt-1">
             Discover more categories and expand your knowledge!
           </p>
         </div>
 
-        <div className="mt-10 border-t-2 border-b-2 px-20 py-6">
-          <div className="flex items-center gap-4">
+        <div className="mt-10 max-sm:mt-8 border-t-2 border-b-2 px-20 max-sm:px-0 py-6 max-sm:py-2">
+          <div className="flex items-center flex-wrap gap-4 max-sm:gap-3">
             <Tag
               key="all"
               name={`#all`}
               link={`/categories/all`}
               border="border-dark"
-              className="!lowercase !py-2"
+              className="!lowercase md:!py-2"
               active={id === "all"}
             />
             {loader ? (
@@ -77,7 +85,7 @@ const Categories = () => {
                   link={`/categories/${category.$id}`}
                   name={`#${slug(category?.name)}`}
                   border="border-dark"
-                  className="!lowercase !py-2 "
+                  className="!lowercase md:!py-2 "
                   active={id === category.$id}
                 />
               ))
@@ -85,7 +93,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20">
+        <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
           {categoryPostLoader ? (
             <h1 className="text-xl text-dark">Loading...</h1>
           ) : (

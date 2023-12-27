@@ -26,7 +26,7 @@ class ConfigService {
       const categoryName = category.trim().toLowerCase();
       const queries = [Query.equal("name", categoryName)];
       // check if that category is existing...
-      const existingCategory = await this.getCategory(queries);
+      const existingCategory = await this.checkCategory(queries);
       console.log({ existingCategory });
       let categoryId;
       if (existingCategory && existingCategory.documents.length > 0) {
@@ -94,16 +94,6 @@ class ConfigService {
         slug
       );
 
-      const category = this.getPost(slug);
-      if (category) {
-        const categoryDocs = this.getPosts([
-          Query.equal("name", category.name),
-        ]);
-        if (categoryDocs.length === 0) {
-          // Delete the empty category document
-          this.deleteCategory(category.$id);
-        }
-      }
       return true;
     } catch (error) {
       console.log(`Error while deleting post :: APPWRITE :: ${error}`);

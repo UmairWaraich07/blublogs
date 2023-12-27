@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 const Logo = ({ width }) => {
   return (
     <div className="flex items-center gap-1 text-dark">
-      <div className={`w-16 rounded-full overflow-hidden ${width}`}>
+      <div className={`w-16 max-md:w-12 rounded-full overflow-hidden ${width}`}>
         <img
           src={logo}
           alt="Logo"

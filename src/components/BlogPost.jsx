@@ -3,17 +3,30 @@ import fileService from "../appwrite/file";
 import { formatDateString } from "../utils";
 import { useSelector } from "react-redux";
 import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import configService from "../appwrite/config";
+import { Query } from "appwrite";
 
 /* eslint-disable react/prop-types */
 const BlogPost = ({ post, authorId, showAuthor = true }) => {
+  // console.log({ post });
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
-  console.log({ userData });
-
-  const isAuthor = post && userData ? authorId === userData.$id : false;
-  console.log({ post });
-  const handleDeletePost = () => {};
+  const isAuthor = post && userData?.$id ? authorId === userData.$id : false;
+  // console.log({ post });
+  const handleDeletePost = async () => {
+    const deletedPost = await configService.deletePost(post.$id);
+    if (deletedPost) {
+      const categoryDocs = await configService.getPosts([
+        // TODO: make the index in post collection of appwrite, so i can fetch by category name
+        Query.equal("name", post.category.name),
+      ]);
+      if (categoryDocs && categoryDocs.length === 0) {
+        // Delete the empty category document
+        await this.deleteCategory(post.category.$id);
+      }
+    }
+  };
   return (
     <div className="relative text-dark flex flex-col gap-4 group">
       {isAuthor && (
@@ -22,7 +35,7 @@ const BlogPost = ({ post, authorId, showAuthor = true }) => {
             <Pencil2Icon className="text-blue w-5 h-5" />
           </button>
           <button className="ml-3" onClick={handleDeletePost}>
-            <TrashIcon className="text-red w-5 h-5" />
+            <TrashIcon className="text-heart w-5 h-5" />
           </button>
         </div>
       )}

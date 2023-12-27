@@ -12,17 +12,17 @@ const Footer = () => {
       <Container>
         <div className="bg-dark rounded-2xl">
           <div className="py-20 flex items-center justify-center flex-col">
-            <h1 className="text-3xl font-medium text-center capitalize">
+            <h1 className="text-3xl max-sm:text-2xl font-medium text-center capitalize px-2">
               Interesting Stories | Updates | Guides
             </h1>
-            <p className="font-inter text-center mt-5 text-base px-4 w-3/5">
+            <p className="font-inter text-center mt-5 text-base max-sm:text-sm px-4 w-3/5 max-sm:w-full">
               Subscribe to learn about new technology and updates. Join over
               5000+ members community to stay up to date with latest news.
             </p>
 
             <form
               onSubmit={handleSubmit(submit)}
-              className="p-2 mt-6 min-w-[350px] flex items-stretch bg-light rounded-md"
+              className="p-2 max-sm:p-1 mt-6 min-w-[350px] max-sm:min-w-[320px] px-4 max-sm:px-2 max-sm:text-sm flex items-stretch bg-light rounded-md"
             >
               <input
                 type="text"
@@ -61,11 +61,11 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div className="w-full text-light border-t border-light font-medium py-6 px-8 flex items-center justify-between">
-            <p>&copy;2023 Umair. All rights reserved.</p>
-            <Link to="/sitemap.xml" className="underline text-center">
+          <div className="w-full text-light border-t border-light font-medium py-6 px-8 flex gap-3 max-sm:flex-col items-center justify-between">
+            <p>&copy;2023 Blublogs. All rights reserved.</p>
+            {/* <Link to="/sitemap.xml" className="underline text-center">
               sitemap.xml
-            </Link>
+            </Link> */}
             <p>
               Made with &hearts; by <Link className="underline">Umair</Link>
             </p>

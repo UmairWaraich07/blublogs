@@ -11,7 +11,7 @@ export default {
         accentDark: "#ffdb4d",
         gray: "#747474",
         lightBlue: "#7B8EC8",
-        red: "#F91880",
+        heart: "#F91880",
         blue: "#1D9BF0",
       },
     },

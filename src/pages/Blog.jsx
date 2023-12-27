@@ -53,15 +53,15 @@ const Blog = () => {
   return loader ? (
     <h1 className="text-6xl font-bold text-dark h-[70vh]">Loading...</h1>
   ) : (
-    <article>
+    <article className="w-full max-sm:mt-4">
       <BlogCover blog={postData} />
       <Container>
         <BlogDetails postData={postData} />
 
         <div className="w-full flex items-center justify-center">
-          <div className="mt-8 w-full max-w-[680px]">
+          <div className="mt-8 max-sm:mt-4 w-full max-w-[680px]">
             <div className="w-full flex items-center gap-4 py-2 border-b-[1.5px] border-b-dark/10">
-              <span className=" font-medium text-xl text-accent">
+              <span className=" font-medium text-xl max-sm:text-base text-accent">
                 Written by:
               </span>
               <WriitenBy post={postData} showDate={false} />

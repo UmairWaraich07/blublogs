@@ -48,26 +48,26 @@ const ProfileDropdown = () => {
         ref={dropdownRef}
         onClick={() => setIsOpen((prevState) => !prevState)}
       >
-        <ProfileIcon className="w-8 h-8 fill-dark dark:fill-light" />
+        <ProfileIcon className="w-[28px] h-[28px] fill-dark dark:fill-light" />
       </div>
       {isOpen && (
         <div
-          className="flex flex-col bg-[#ececec] shadow-lg  absolute top-16 right-8 rounded-lg
-        text-dark py-3 z-50"
+          className="absolute top-[72px] right-10 py-5 px-4 space-y-3 bg-light/80 backdrop-blur-sm
+         border border-dark shadow-xl rounded-lg z-10"
         >
           <Link
             to={`/profile/${userData.$id}`}
-            className="hover:bg-[#bbbbbb] px-4 py-2 cursor-pointer flex items-center justify-start gap-2 text-sm font-medium"
+            className="cursor-pointer flex items-center justify-start gap-2 text-dark font-medium"
           >
-            <PersonIcon />
-            Visit Profile
+            <PersonIcon className="w-5 h-5 text-dark" />
+            Profile
           </Link>
 
           <button
-            className="hover:bg-[#bbbbbb]  px-4 py-2 cursor-pointer flex items-center justify-start gap-2 text-sm font-medium"
+            className="cursor-pointer flex items-center justify-start gap-2 text-dark font-medium"
             onClick={signout}
           >
-            <ExitIcon />
+            <ExitIcon className="w-5 h-5 text-dark" />
             Sign out
           </button>
         </div>

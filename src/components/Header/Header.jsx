@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { lightMode, darkMode } from "../../store/themeSlice";
-import { Button, Logo, ProfileDropdown } from "../index";
+import { Button, Logo, MobileNavbar, ProfileDropdown } from "../index";
 import { navItems } from "../../constant";
 
 const Header = () => {
@@ -19,13 +19,13 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex items-center justify-between py-4 px-10 max-w-[1320px] mx-auto">
+    <header className="w-full flex items-center justify-between py-4 px-10 max-sm:px-4 max-w-[1320px] mx-auto">
       <Link to="/">
         <Logo />
       </Link>
 
       <nav
-        className="flex items-center justify-center gap-3 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
+        className="max-md:hidden flex items-center justify-center gap-3 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
       fixed top-6 right-1/2 translate-x-1/2 font-medium capitalize z-50 "
       >
         {navItems.map((item) => (
@@ -47,7 +47,7 @@ const Header = () => {
         </button>
       </nav>
 
-      <div className="flex items-center justify-center gap-4 ">
+      <div className="max-md:hidden flex items-center justify-center gap-4 ">
         {authStatus ? (
           <ProfileDropdown />
         ) : (
@@ -68,6 +68,24 @@ const Header = () => {
             </Button>
           </>
         )}
+      </div>
+
+      {/* Mobile Navigation Items */}
+      <div className="flex items-center gap-6 md:hidden">
+        <button
+          className={`${
+            mode === "light" ? "bg-dark" : "bg-light"
+          } w-6 h-6 rounded-full flex items-center justify-center p-[2px]`}
+          onClick={handleTheme}
+        >
+          {mode === "light" ? (
+            <MoonIcon className="w-6 h-6 text-white" />
+          ) : (
+            <SunIcon className="w-6 h-6" />
+          )}
+        </button>
+
+        <MobileNavbar authStatus={authStatus} />
       </div>
     </header>
   );

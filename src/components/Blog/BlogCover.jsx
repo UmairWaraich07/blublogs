@@ -4,7 +4,7 @@ import { Tag } from "../index";
 
 const BlogCover = ({ blog }) => {
   return (
-    <div className="relative w-full h-[70vh] ">
+    <div className="relative w-full h-[70vh] max-sm:h-[60vh] ">
       <div
         className="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-b from-transparent
        from-0% to-dark/60 z-0"
@@ -18,7 +18,7 @@ const BlogCover = ({ blog }) => {
           link={`/categories/${blog?.category?.$id}`}
           name={blog?.category?.name}
         />
-        <h1 className="inline-block mt-6 font-semibold capitalize text-light text-4xl text-center leading-normal w-5/6">
+        <h1 className="inline-block mt-6 font-semibold capitalize text-light text-4xl max-sm:text-2xl text-center leading-normal w-5/6">
           {blog?.title}
         </h1>
       </div>

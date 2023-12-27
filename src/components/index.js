@@ -21,6 +21,7 @@ import BlogContent from "./Blog/BlogContent";
 import { TOC } from "./Blog/TOC";
 import BlogInteraction from "./Blog/BlogInteraction";
 import WriitenBy from "./Blog/WriitenBy";
+import MobileNavbar from "./Header/MobileNavbar";
 
 export {
   Header,
@@ -46,4 +47,5 @@ export {
   TOC,
   BlogInteraction,
   WriitenBy,
+  MobileNavbar,
 };
