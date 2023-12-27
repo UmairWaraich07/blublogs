@@ -53,6 +53,8 @@ const PostForm = ({ post }) => {
             }
           }
         }
+
+        console.log({ data });
         // update the DB with edited values
         const editedPost = await configService.editPost(post.$id, {
           featuredImage: file?.$id ? file.$id : data.image,
@@ -67,12 +69,14 @@ const PostForm = ({ post }) => {
       } else {
         const file = await fileService.uploadFile(data.image[0]);
         if (file) {
+          console.log("file is uploaded to the DB");
+          console.log("Form Data", data);
           const createdPost = await configService.createPost({
             featuredImage: file.$id,
             authorId: userData.$id,
             ...data,
           });
-          navigate(`/blog/${data.slug}`);
+          if (createdPost) navigate(`/blog/${data.slug}`);
           console.log({ createdPost });
         }
       }
@@ -86,7 +90,7 @@ const PostForm = ({ post }) => {
 
   const transformSlug = (title) => {
     // Convert title to lowercase
-    let slug = title.trim().toLowerCase();
+    let slug = title?.trim().toLowerCase();
 
     // Replace spaces with hyphens
     slug = slug.replace(/\s+/g, "-");
@@ -244,7 +248,7 @@ const PostForm = ({ post }) => {
           </div>
         )}
 
-        {post.featuredImage && (
+        {post?.featuredImage && (
           <img
             src={fileService.getPostPreview(post.featuredImage)}
             className="w-[300px] h-[200px] object-cover rounded-lg mt-4"

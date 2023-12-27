@@ -22,11 +22,16 @@ const Home = () => {
   ) : (
     <div className="w-full">
       <Container>
-        <HomeCoverSection post={posts[0]} />
+        <HomeCoverSection post={posts[3]} />
         <section className="w-full mt-24 px-20">
           <div className="w-full flex items-center justify-between">
             <h2 className="text-3xl font-bold text-dark">Recent Posts</h2>
-            <Link className="text-accent underline text-base">view all</Link>
+            <Link
+              to="/categories/all"
+              className="text-accent underline text-base"
+            >
+              view all
+            </Link>
           </div>
 
           <div className="w-full mt-10 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

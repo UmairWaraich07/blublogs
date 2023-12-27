@@ -16,7 +16,7 @@ const HomeCoverSection = ({ post }) => {
       />
       <div className="absolute bottom-4 w-3/4 p-16 flex items-start justify-center flex-col text-light">
         <Tag
-          link={`categories/${post.category.name}`}
+          link={`categories/${post.category.$id}`}
           name={post.category.name}
         />
         <Link className="mt-6" to={`/blog/${post.$id}`}>

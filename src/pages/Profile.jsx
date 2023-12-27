@@ -18,7 +18,7 @@ const Profile = () => {
   const isActive = pathname.includes("saved");
 
   const [loader, setLoader] = useState(true);
-  const { authStatus, userData } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.auth);
 
   const isAuthor = userInfo && userData ? userInfo.$id === userData.$id : false;
   const navigate = useNavigate();
@@ -33,14 +33,14 @@ const Profile = () => {
   return loader ? (
     <h1 className="text-6xl font-bold text-dark">Loading...</h1>
   ) : (
-    <div className="w-full mt-6">
+    <div className="w-full mt-8">
       <Container>
         <div className="">
           <div className="w-full flex max-sm:flex-col-reverse items-start justify-between gap-8 max-sm:gap-2">
-            <div className="flex max-md:flex-col gap-6">
+            <div className="flex max-md:flex-col gap-6 px-20">
               <ProfileInfo userData={userInfo} />
             </div>
-            {authStatus && (
+            {userData?.$id === userInfo?.$id && (
               <div className="w-full flex justify-end flex-1">
                 <Button
                   onClick={() => navigate(`/profile/edit/${userInfo.$id}`)}

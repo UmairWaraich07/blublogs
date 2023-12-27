@@ -25,16 +25,23 @@ class ConfigService {
     try {
       const categoryName = category.trim().toLowerCase();
       const queries = [Query.equal("name", categoryName)];
+      // check if that category is existing...
       const existingCategory = await this.getCategory(queries);
+      console.log({ existingCategory });
       let categoryId;
-      if (existingCategory.documents.length > 0) {
+      if (existingCategory && existingCategory.documents.length > 0) {
+        // store the id of that existing category in categoryId
         categoryId = existingCategory.documents[0].$id;
       } else {
+        // create a new category
         const createdCategory = await this.createCategory(categoryName);
         if (!createdCategory) throw new Error("New category creation failed!");
+        // store the id of new category in categoryId
         categoryId = createdCategory.$id;
       }
+      console.log({ categoryId });
       if (categoryId) {
+        // now we got the reference of category Id, store this id in post
         const createdPost = await this.databases.createDocument(
           conf.appwriteDatabaseId,
           conf.appwritePostsCollectionId,
@@ -173,13 +180,11 @@ class ConfigService {
     }
   }
 
-  async getCategory(queries = [Query.equal()]) {
-    console.log(queries);
+  async getCategories() {
     try {
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
-        conf.appwriteCategoriesCollectionId,
-        queries
+        conf.appwriteCategoriesCollectionId
       );
     } catch (error) {
       console.log(`Error while checking the category :: APPWRITE :: ${error}`);
@@ -212,6 +217,33 @@ class ConfigService {
     } catch (error) {
       console.log(`Error while deleting the category :: APPWRITE :: ${error}`);
       return false;
+    }
+  }
+
+  async getCategory(categoryId) {
+    try {
+      return await this.databases.getDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCategoriesCollectionId,
+        categoryId
+      );
+    } catch (error) {
+      console.log(
+        `Error while getting the category by Id :: APPWRITE :: ${error}`
+      );
+      return false;
+    }
+  }
+
+  async checkCategory(queries = [Query.equal()]) {
+    try {
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCategoriesCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log(`Error while checking the category :: APPWRITE :: ${error}`);
     }
   }
 }

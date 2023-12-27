@@ -58,7 +58,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="categories/all"
+          path="categories/:id"
           element={
             <ProtectedRoute authentication={false}>
               <Categories />

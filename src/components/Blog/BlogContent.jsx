@@ -15,7 +15,7 @@ const BlogContent = ({ content }) => {
         py-6
     "
     >
-      {parse(content)}
+      {parse(content || "")}
     </div>
   );
 };

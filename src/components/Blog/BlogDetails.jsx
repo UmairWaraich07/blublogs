@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { calculateReadingTime, formatDateString } from "../../utils";
+import { slug } from "github-slugger";
 
 const BlogDetails = ({ postData }) => {
   return (
@@ -12,8 +13,8 @@ const BlogDetails = ({ postData }) => {
       <span>{postData?.views} views</span>
 
       <span>{calculateReadingTime(postData?.content)} read</span>
-      <Link to={`/categories/${postData?.category.name}`}>
-        #{postData?.category.name}
+      <Link to={`/categories/${postData?.category?.$id}`}>
+        #{slug(postData?.category?.name)}
       </Link>
     </div>
   );

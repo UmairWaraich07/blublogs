@@ -20,6 +20,7 @@ import BlogDetails from "./Blog/BlogDetails";
 import BlogContent from "./Blog/BlogContent";
 import { TOC } from "./Blog/TOC";
 import BlogInteraction from "./Blog/BlogInteraction";
+import WriitenBy from "./Blog/WriitenBy";
 
 export {
   Header,
@@ -44,4 +45,5 @@ export {
   BlogContent,
   TOC,
   BlogInteraction,
+  WriitenBy,
 };

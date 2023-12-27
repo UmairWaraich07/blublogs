@@ -129,7 +129,7 @@ const EditProfile = () => {
   return loader ? (
     <h1 className="text-6xl font-bold text-dark">Loading...</h1>
   ) : (
-    <div className="w-full">
+    <div className="w-full mt-8">
       <Container>
         <h1 className="text-3xl font-bold">Edit Profile</h1>
         <form

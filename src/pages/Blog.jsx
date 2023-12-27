@@ -7,6 +7,7 @@ import {
   BlogDetails,
   BlogInteraction,
   Container,
+  WriitenBy,
 } from "../components";
 
 const Blog = () => {
@@ -56,8 +57,15 @@ const Blog = () => {
       <BlogCover blog={postData} />
       <Container>
         <BlogDetails postData={postData} />
+
         <div className="w-full flex items-center justify-center">
           <div className="mt-8 w-full max-w-[680px]">
+            <div className="w-full flex items-center gap-4 py-2 border-b-[1.5px] border-b-dark/10">
+              <span className=" font-medium text-xl text-accent">
+                Written by:
+              </span>
+              <WriitenBy post={postData} showDate={false} />
+            </div>
             <BlogContent content={postData?.content} />
             <BlogInteraction postData={postData} setPostData={setPostData} />
           </div>

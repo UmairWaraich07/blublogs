@@ -15,8 +15,8 @@ const BlogCover = ({ blog }) => {
       />
       <div className="absolute w-full flex items-center justify-center flex-col left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <Tag
-          link={`/categories/${blog?.category.name}`}
-          name={blog?.category.name}
+          link={`/categories/${blog?.category?.$id}`}
+          name={blog?.category?.name}
         />
         <h1 className="inline-block mt-6 font-semibold capitalize text-light text-4xl text-center leading-normal w-5/6">
           {blog?.title}

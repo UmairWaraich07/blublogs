@@ -22,7 +22,7 @@ const BlogInteraction = ({ postData, setPostData }) => {
   const { authStatus, userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!userData.savedPosts && userData) {
+    if (!userData?.savedPosts && userData) {
       // Check if savedPosts is missing
       (async () => {
         const data = await userService.getUser([
@@ -69,14 +69,12 @@ const BlogInteraction = ({ postData, setPostData }) => {
       console.log(`Error on updating the saved post : ${error}`);
       throw new Error(error.message);
     }
-    // bookmark the post if the user has not saved it already by adding the postId from the savedPost array of current user
-    // remove bookmark from the post if the user has already saved it by removing the postId from the savedPost array of current user
   };
 
   return loader ? (
     <h1 className="text-2xl text-dark">Loading...</h1>
   ) : (
-    <div className="py-2 px-10 border-t border-b border-accent flex items-center gap-10">
+    <div className="py-2 px-10 border-t-[1.5px] border-b-[1.5px] border-dark/10 flex items-center gap-10">
       <div
         className="flex items-center gap-1 cursor-pointer group "
         onClick={handleLike}
