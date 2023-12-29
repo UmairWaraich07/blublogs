@@ -19,6 +19,11 @@ const postSlice = createSlice({
     editPost(state, action) {
       const postToEdit = action.payload;
 
+      if (postToEdit.status === "active") {
+        state.posts = [];
+      }
+
+      // only edit the post if there is post available
       if (state.posts.length > 0) {
         state.posts = state.posts.map((post) => {
           if (post.$id === postToEdit.$id) {

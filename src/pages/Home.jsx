@@ -2,29 +2,46 @@ import { useEffect, useState } from "react";
 import configService from "../appwrite/config";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../store/postSlice";
-import { BlogPost, Container, HomeCoverSection } from "../components/index";
-import { Link } from "react-router-dom";
+import {
+  BlogPost,
+  Container,
+  HomeCoverSection,
+  Pagination,
+} from "../components/index";
+import { Link, useSearchParams } from "react-router-dom";
+import { Query } from "appwrite";
 
 const Home = () => {
+  const limit = 9;
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const { posts } = useSelector((state) => state.posts);
-  const [postData, setPostData] = useState(posts);
+  const activePosts = posts.filter((item) => item.status === "active");
+  const [postData, setPostData] = useState(activePosts || []);
+  const [totalPosts, setTotalPosts] = useState(0);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page");
 
   useEffect(() => {
-    if (!posts || posts?.length === 0) {
-      console.log(
-        "fetching the posts of home because redux posts is empty...."
+    const fetchPosts = async () => {
+      console.log("fetching home posts");
+      const data = await configService.getPosts(
+        [Query.equal("status", "active")],
+        page ? page : 1,
+        limit
       );
+      setPostData(data.documents);
+      setTotalPosts(data.total);
+      dispatch(setPosts(data.documents));
+    };
 
-      (async () => {
-        const data = await configService.getPosts();
-        setPostData(data.documents);
-        dispatch(setPosts(data.documents));
-      })();
-    }
+    // if (!posts || posts?.length === 0) {
+    fetchPosts();
+
     setLoader(false);
-  }, [dispatch, posts]);
+  }, [dispatch, page]);
+
   return loader ? (
     <h1 className="text-6xl text-dark dark:text-light font-bold">Loading...</h1>
   ) : (
@@ -50,6 +67,12 @@ const Home = () => {
             ))}
           </div>
         </section>
+
+        <Pagination
+          currentPage={page ? page : 1}
+          totalPages={Math.ceil(totalPosts / limit)}
+          setSearchParams={setSearchParams} // Assuming a limit of 8 posts per page
+        />
       </Container>
     </div>
   );

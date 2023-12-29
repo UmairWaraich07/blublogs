@@ -143,15 +143,20 @@ class ConfigService {
     }
   }
 
-  async getPosts(query = [Query.equal("status", "active")]) {
+  async getPosts(
+    query = [Query.equal("status", "active")],
+    page = 1,
+    limit = 9
+  ) {
     try {
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwritePostsCollectionId,
-        query
+        [...query, Query.limit(limit), Query.offset((page - 1) * limit)]
       );
     } catch (error) {
-      console.log(`Error while getting all the posts :: APPWRITE :: ${error}`);
+      console.log(`Error while getting posts :: APPWRITE :: ${error}`);
+      return { posts: [], totalPosts: 0 }; // Return empty data for error handling
     }
   }
 

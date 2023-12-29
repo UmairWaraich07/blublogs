@@ -20,6 +20,7 @@ const Categories = () => {
       ? activeCategory[0]?.name
       : "all";
   const { posts } = useSelector((state) => state.posts);
+
   const [categoryPosts, setCategoryPosts] = useState(posts || []);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Categories = () => {
 
   useEffect(() => {
     if (!posts || posts?.length === 0) {
-      console.log("fetching the posts because redux posts is empty....");
+      console.log("fetching the posts for all category....");
       (async () => {
         const data = await configService.getPosts();
         setCategoryPosts(data.documents);
@@ -41,11 +42,14 @@ const Categories = () => {
       })();
     }
     if (id === "all") {
-      setCategoryPosts(posts);
+      const activePosts = posts.filter((item) => item.status === "active");
+      setCategoryPosts(activePosts);
     }
 
     if (id !== "all") {
       (async () => {
+        console.log("fetching the posts with other id....");
+
         const data = await configService.getCategory(id);
         const activePosts = data.post.filter(
           (item) => item.status === "active"

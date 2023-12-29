@@ -13,7 +13,8 @@ const BlogPost = ({ post, authorId, showAuthor = true }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profilePosts);
-  const { posts } = useSelector((state) => state.posts);
+  let { posts } = useSelector((state) => state.posts);
+  posts = posts.filter((post) => post.status === "active");
 
   const userData = useSelector((state) => state.auth.userData);
 
