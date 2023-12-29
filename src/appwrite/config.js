@@ -68,7 +68,7 @@ class ConfigService {
   async editPost(slug, { content, featuredImage, status }) {
     try {
       // handle the editpost
-      await this.databases.updateDocument(
+      return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwritePostsCollectionId,
         slug,
@@ -78,7 +78,6 @@ class ConfigService {
           status,
         }
       );
-      return true;
     } catch (error) {
       await fileService.deleteFile(featuredImage);
       console.log(`Error while editing the post :: APPWRITE :: ${error}`);

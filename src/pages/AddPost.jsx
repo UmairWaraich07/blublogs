@@ -4,7 +4,9 @@ const AddPost = () => {
   return (
     <div className="w-full mt-8">
       <Container>
-        <h1 className="text-3xl font-bold">Write a blog post</h1>
+        <h1 className="text-3xl text-dark dark:text-light font-bold">
+          Write a blog post
+        </h1>
         <PostForm />
       </Container>
     </div>

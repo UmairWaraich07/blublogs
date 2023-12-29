@@ -6,14 +6,16 @@ import { RTE } from "./RTE";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import configService from "../appwrite/config";
 import fileService from "../appwrite/file";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { editPost, updatePosts } from "../store/postSlice";
 const PostForm = ({ post }) => {
   const [err, setErr] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     watch,
@@ -60,9 +62,12 @@ const PostForm = ({ post }) => {
           featuredImage: file?.$id ? file.$id : data.image,
           ...data,
         });
+        console.log(editedPost);
 
         if (editedPost) {
-          navigate(`/blog/${post.$id}`);
+          // when post is edited successfully, update the state of home posts
+          dispatch(editPost(editedPost));
+          navigate(`/blog/${post.$id}`, { replace: true });
         } else {
           throw new Error("Error on editing the post");
         }
@@ -76,8 +81,11 @@ const PostForm = ({ post }) => {
             authorId: userData.$id,
             ...data,
           });
-          if (createdPost) navigate(`/blog/${data.slug}`);
-          console.log({ createdPost });
+          if (createdPost) {
+            // when post is created successfully, update the state of home posts
+            dispatch(updatePosts(createdPost));
+            navigate(`/blog/${data.slug}`, { replace: true });
+          }
         }
       }
     } catch (error) {
@@ -183,7 +191,7 @@ const PostForm = ({ post }) => {
           })}
           disabled={post}
         />
-        <p className="text-sm text-lightBlue mt-1 font-inter">
+        <p className="text-sm max-sm:text-xs text-lightBlue mt-1 font-inter">
           Be specified and imagine you are sharing your thoughts with others
         </p>
         {errors.title && (
@@ -200,7 +208,7 @@ const PostForm = ({ post }) => {
             required: true,
           })}
         />
-        <p className="text-sm text-lightBlue mt-1 font-inter">
+        <p className="text-sm max-sm:text-xs text-lightBlue mt-1 font-inter">
           Slug is auto generated
         </p>
         {errors.slug && (
@@ -215,7 +223,7 @@ const PostForm = ({ post }) => {
           label="Detailed explanation of your Blog"
           control={control}
         />
-        <p className="text-lightBlue text-sm mt-1 font-inter">
+        <p className="text-lightBlue max-sm:text-xs text-sm mt-1 font-inter">
           Write detailed explanation on what you put in the title. Minimum 100
           characters
         </p>
@@ -266,7 +274,7 @@ const PostForm = ({ post }) => {
           })}
           disabled={post}
         />
-        <p className="text-lightBlue text-sm mt-1 font-inter max-w-[600px]">
+        <p className="text-lightBlue max-sm:text-xs text-sm mt-1 font-inter max-w-[600px]">
           Add one Category to describe what your question is about.
         </p>
       </div>
@@ -286,7 +294,7 @@ const PostForm = ({ post }) => {
       <Button disabled={isLoading} type="submit" className="mt-5">
         {isLoading && (
           <span className="mr-2">
-            <ReloadIcon className="w-4 h-4 animate-spin" />
+            <ReloadIcon className="w-4 h-4 animate-spin dark:text-light" />
           </span>
         )}
 

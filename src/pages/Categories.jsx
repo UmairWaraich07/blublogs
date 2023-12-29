@@ -47,7 +47,10 @@ const Categories = () => {
     if (id !== "all") {
       (async () => {
         const data = await configService.getCategory(id);
-        setCategoryPosts(data.post);
+        const activePosts = data.post.filter(
+          (item) => item.status === "active"
+        );
+        setCategoryPosts(activePosts);
         setCategoryPostLoader(false);
       })();
     }
@@ -57,34 +60,34 @@ const Categories = () => {
   return (
     <div className="w-full mt-8">
       <Container>
-        <div className="px-20 max-sm:px-0">
-          <h1 className="text-6xl max-sm:text-3xl font-semibold">
+        <div className="px-20 max-md:px-2">
+          <h1 className="text-6xl max-sm:text-3xl max-md:text-4xl font-semibold text-dark dark:text-light">
             #{slug(activeCategoryName)}
           </h1>
-          <p className="font-inter text-dark/90 max-sm:text-sm mt-1">
+          <p className="font-inter text-dark/90 dark:text-light/90 max-sm:text-sm mt-1">
             Discover more categories and expand your knowledge!
           </p>
         </div>
 
-        <div className="mt-10 max-sm:mt-8 border-t-2 border-b-2 px-20 max-sm:px-0 py-6 max-sm:py-2">
+        <div className="mt-10 max-sm:mt-8 border-t-2 border-t-dark dark:border-t-light border-b-2 border-b-dark dark:border-b-light px-20 max-sm:px-0 py-6 max-sm:py-4">
           <div className="flex items-center flex-wrap gap-4 max-sm:gap-3">
             <Tag
               key="all"
               name={`#all`}
               link={`/categories/all`}
-              border="border-dark"
+              border="border-dark dark:border-light"
               className="!lowercase md:!py-2"
               active={id === "all"}
             />
             {loader ? (
-              <h1 className="text-xl text-dark">Loading...</h1>
+              <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
             ) : (
               categories?.map((category) => (
                 <Tag
                   key={category.$id}
                   link={`/categories/${category.$id}`}
                   name={`#${slug(category?.name)}`}
-                  border="border-dark"
+                  border="border-dark dark:border-light"
                   className="!lowercase md:!py-2 "
                   active={id === category.$id}
                 />
@@ -95,7 +98,7 @@ const Categories = () => {
 
         <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
           {categoryPostLoader ? (
-            <h1 className="text-xl text-dark">Loading...</h1>
+            <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
           ) : (
             categoryPosts?.map((post) => (
               <BlogPost key={post?.$id} post={post} />

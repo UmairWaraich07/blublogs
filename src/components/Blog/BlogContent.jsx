@@ -13,6 +13,7 @@ const BlogContent = ({ content }) => {
         prose-blockquote:rounded-r-lg
         prose-li:marker:text-accent
         py-6
+        text-dark dark:text-light
     "
     >
       {parse(content || "")}

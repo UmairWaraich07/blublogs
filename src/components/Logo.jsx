@@ -10,8 +10,8 @@ const Logo = ({ width }) => {
           className="w-full h-auto rounded-full object-contain"
         />
       </div>
-      <div className="font-bold text-xl">
-        Blu<span className="text-accent">Blogs</span>
+      <div className="font-bold text-xl text-dark dark:text-light">
+        Blu<span className="text-accent dark:text-accentDark">Blogs</span>
       </div>
     </div>
   );

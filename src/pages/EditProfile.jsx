@@ -131,7 +131,7 @@ const EditProfile = () => {
   ) : (
     <div className="w-full mt-8">
       <Container>
-        <h1 className="text-3xl font-bold">Edit Profile</h1>
+        <h1 className="text-3xl font-bold dark:text-light">Edit Profile</h1>
         <form
           onSubmit={handleSubmit(editProfile)}
           className="mt-6 flex flex-col items-start gap-4"
@@ -147,7 +147,7 @@ const EditProfile = () => {
             />
 
             {errors.name && (
-              <span className="mt-1 text-red-600 text-sm font-inter">
+              <span className="mt-0.5 text-red-600 text-sm font-inter">
                 {errors.name.message}
               </span>
             )}
@@ -163,7 +163,7 @@ const EditProfile = () => {
             />
 
             {errors.username && (
-              <span className="mt-1 text-red-600 text-sm font-inter">
+              <span className="mt-0.5 text-red-600 text-sm font-inter">
                 {errors.username.message}
               </span>
             )}
@@ -177,7 +177,7 @@ const EditProfile = () => {
             />
 
             {errors.image && (
-              <span className="mt-1 text-red-600 text-sm font-inter">
+              <span className="mt-0.5 text-red-600 text-sm font-inter">
                 {errors.image.message}
               </span>
             )}
@@ -207,11 +207,11 @@ const EditProfile = () => {
             />
           </div>
 
-          {err && <p className="text-red-600 mt-2 text-sm">{err.message}</p>}
+          {err && <p className="text-red-600 mt-1 text-sm">{err.message}</p>}
           <Button disabled={isLoading} type="submit" className="mt-5">
             {isLoading && (
               <span className="mr-2">
-                <ReloadIcon className="w-4 h-4 animate-spin" />
+                <ReloadIcon className="w-4 h-4 animate-spin dark:text-light" />
               </span>
             )}
             {isLoading ? "Editing..." : "Edit"}

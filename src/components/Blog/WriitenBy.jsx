@@ -9,7 +9,7 @@ const WriitenBy = ({ post, showDate = true }) => {
       to={`/profile/${post?.authorId?.$id}`}
       className="flex items-center gap-3 mt-1 flex-wrap"
     >
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         {post?.authorId?.profileImage ? (
           <img
             src={fileService.getPostPreview(post?.authorId?.profileImage)}
@@ -35,14 +35,14 @@ const WriitenBy = ({ post, showDate = true }) => {
           </div>
         )}
 
-        <p className="text-dark font-medium cursor-pointer">
+        <p className="text-dark dark:text-light font-medium cursor-pointer">
           {post?.authorId?.fullName}
         </p>
       </div>
       {showDate && (
         <div className="flex items-center gap-1">
-          <div className="w-1 h-1 rounded-full bg-gray" />
-          <p className="text-gray font-semibold text-sm capitalize cursor-pointer">
+          <div className="w-1 h-1 rounded-full bg-gray dark:text-light" />
+          <p className="text-gray dark:text-light/50 font-semibold text-sm capitalize cursor-pointer">
             {formatDateString(post?.$createdAt)}
           </p>
         </div>

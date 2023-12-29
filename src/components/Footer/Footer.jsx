@@ -8,9 +8,9 @@ const Footer = () => {
     console.log(data);
   };
   return (
-    <footer className="w-full text-light mt-24 rounded-2xl mb-6">
+    <footer className="w-full text-light dark:text-dark mt-24 rounded-2xl mb-6">
       <Container>
-        <div className="bg-dark rounded-2xl">
+        <div className="bg-dark dark:bg-accentDark rounded-2xl">
           <div className="py-20 flex items-center justify-center flex-col">
             <h1 className="text-3xl max-sm:text-2xl font-medium text-center capitalize px-2">
               Interesting Stories | Updates | Guides
@@ -22,7 +22,7 @@ const Footer = () => {
 
             <form
               onSubmit={handleSubmit(submit)}
-              className="p-2 max-sm:p-1 mt-6 min-w-[350px] max-sm:min-w-[320px] px-4 max-sm:px-2 max-sm:text-sm flex items-stretch bg-light rounded-md"
+              className="p-2 max-sm:p-1 mt-6 min-w-[350px] max-sm:min-w-[300px] px-4 max-sm:px-2 max-sm:text-sm flex items-stretch bg-light dark:bg-dark rounded-md"
             >
               <input
                 type="text"
@@ -30,11 +30,11 @@ const Footer = () => {
                 {...register("email", {
                   required: "Email is required.",
                 })}
-                className="outline-none border-b border-b-gray font-medium text-dark w-full rounded"
+                className="outline-none border-b border-b-gray font-medium dark:bg-dark text-dark dark:text-light w-full rounded"
               />
               <button
                 type="submit"
-                className="ml-4 py-2 px-5 font-medium bg-dark text-light rounded-md"
+                className="ml-4 max-sm:ml-2 py-2 px-5 font-medium bg-dark dark:bg-light text-light dark:text-dark  rounded-md"
               >
                 Submit
               </button>
@@ -57,11 +57,11 @@ const Footer = () => {
                 href="https://github.com/UmairWaraich07"
                 className="w-6 h-6 hover:scale-125 transition-all duration-200"
               >
-                <GithubIcon className="fill-light" />
+                <GithubIcon className="fill-light dark:fill-dark" />
               </a>
             </div>
           </div>
-          <div className="w-full text-light border-t border-light font-medium py-6 px-8 flex gap-3 max-sm:flex-col items-center justify-between">
+          <div className="w-full text-light dark:text-dark border-t border-light font-medium py-6 px-8 flex gap-3 max-sm:flex-col max-sm:text-sm max-sm:text-center items-center justify-between">
             <p>&copy;2023 Blublogs. All rights reserved.</p>
             {/* <Link to="/sitemap.xml" className="underline text-center">
               sitemap.xml

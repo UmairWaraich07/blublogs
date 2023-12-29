@@ -17,8 +17,9 @@ const BlogCover = ({ blog }) => {
         <Tag
           link={`/categories/${blog?.category?.$id}`}
           name={blog?.category?.name}
+          className="!bg-dark !text-light !border-light"
         />
-        <h1 className="inline-block mt-6 font-semibold capitalize text-light text-4xl max-sm:text-2xl text-center leading-normal w-5/6">
+        <h1 className="inline-block mt-6 max-sm:mt-4 font-semibold capitalize text-light text-4xl max-sm:text-2xl text-center leading-normal w-5/6">
           {blog?.title}
         </h1>
       </div>

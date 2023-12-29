@@ -14,7 +14,10 @@ const ProfileSaveds = () => {
         const fetchedPosts = await configService.fetchSavedPostsData(
           userInfo.savedPosts
         );
-        setSavedPosts(fetchedPosts);
+        const activeSavedPosts = fetchedPosts.filter(
+          (post) => post.status === "active"
+        );
+        setSavedPosts(activeSavedPosts);
       } catch (error) {
         console.log(`Error while fetching savedPosts Data : ${error}`);
         throw new Error(error.message);

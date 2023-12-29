@@ -74,7 +74,7 @@ const BlogInteraction = ({ postData, setPostData }) => {
   return loader ? (
     <h1 className="text-2xl text-dark">Loading...</h1>
   ) : (
-    <div className="py-2 px-10 max-sm:px-4 border-t-[1.5px] border-b-[1.5px] border-dark/10 flex items-center gap-10">
+    <div className="py-3 px-10 max-sm:px-4 border-t-[1.5px] dark:border-t border-b-[1.5px] dark:border-b border-dark/10 dark:border-light flex items-center gap-10">
       <div
         className="flex items-center gap-1 cursor-pointer group "
         onClick={handleLike}
@@ -82,11 +82,11 @@ const BlogInteraction = ({ postData, setPostData }) => {
         {hasLiked ? (
           <HeartFilledIcon className="w-6 h-6 text-heart" />
         ) : (
-          <HeartIcon className="text-dark w-6 h-6 transition group-hover:text-heart" />
+          <HeartIcon className="text-dark dark:text-light w-6 h-6 transition group-hover:text-heart" />
         )}
         <span
           className={`${
-            hasLiked ? "text-heart" : "text-dark"
+            hasLiked ? "text-heart" : "text-dark dark:text-light"
           } font-semibold transition group-hover:text-heart`}
         >
           {postData?.likedBy?.length}
@@ -96,7 +96,7 @@ const BlogInteraction = ({ postData, setPostData }) => {
         {hasSaved ? (
           <BookmarkFilledIcon className="text-blue w-6 h-6" />
         ) : (
-          <BookmarkIcon className="text-dark w-6 h-6 transition hover:text-blue" />
+          <BookmarkIcon className="text-dark dark:text-light w-6 h-6 transition hover:text-blue" />
         )}
       </div>
     </div>

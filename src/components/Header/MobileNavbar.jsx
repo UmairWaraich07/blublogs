@@ -113,18 +113,19 @@ const MobileNavbar = ({ authStatus }) => {
           </div>
 
           {authStatus && (
-            <div
-              className="border-t border-dark/20 py-4 px-4 space-y-2.5"
-              onClick={signout}
-            >
+            <div className="border-t border-dark/20  space-y-3">
               <Link
                 to={`/profile/${userData.$id}`}
-                className="cursor-pointer flex items-center justify-start gap-2 text-dark font-medium"
+                onClick={closeMenu}
+                className="px-4 cursor-pointer flex items-center justify-start gap-2 text-dark font-medium border-b border-dark/20 py-4"
               >
                 <PersonIcon className="w-5 h-5 text-dark" />
                 Profile
               </Link>
-              <button className="cursor-pointer flex items-center justify-start gap-2 text-dark font-medium">
+              <button
+                onClick={signout}
+                className="px-4 cursor-pointer flex items-center justify-start gap-2 text-dark font-medium py-2"
+              >
                 <ExitIcon className="w-5 h-5 text-dark" />
                 Sign out
               </button>

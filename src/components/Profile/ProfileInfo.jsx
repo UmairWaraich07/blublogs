@@ -6,7 +6,7 @@ import fileService from "../../appwrite/file";
 const ProfileInfo = ({ userData }) => {
   return (
     <>
-      <div className="">
+      <div>
         {userData.profileImage ? (
           <img
             src={fileService.getPostPreview(userData.profileImage)}
@@ -31,12 +31,14 @@ const ProfileInfo = ({ userData }) => {
           </div>
         )}
       </div>
-      <div>
+      <div className="text-dark dark:text-light">
         <h2 className="text-3xl font-bold">{userData?.fullName}</h2>
         <h4 className="font-medium text-lg">@{userData?.username}</h4>
         <div className="flex items-center gap-2 mt-4">
-          <CalendarIcon className="text-dark w-5 h-5" />
-          <p className=" font-medium">{formatJoinDate(userData?.$createdAt)}</p>
+          <CalendarIcon className="text-dark dark:text-light w-5 h-5" />
+          <p className=" font-medium dark:font-normal">
+            {formatJoinDate(userData?.$createdAt)}
+          </p>
         </div>
         <p className="mt-4 font-inter">{userData?.bio}</p>
       </div>

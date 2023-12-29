@@ -45,10 +45,10 @@ const Register = () => {
         <div className="w-full flex items-center justify-center ">
           <Logo />
         </div>
-        <div className="text-dark text-3xl font-bold text-center">
+        <div className="text-dark dark:text-light text-3xl font-bold text-center">
           Create a new account
         </div>
-        <p className="text-gray text-sm mt-2 text-center">
+        <p className="text-gray dark:text-light/80 text-sm mt-2 text-center">
           To use BluBlogs, Please enter your details
         </p>
         <form
@@ -59,7 +59,6 @@ const Register = () => {
             label="Name"
             type="text"
             className="w-full"
-            placeholder="FullName"
             {...register("fullName", {
               required: "Name is required",
             })}
@@ -71,7 +70,6 @@ const Register = () => {
             label="Username"
             type="text"
             className="w-full"
-            placeholder="Username"
             {...register("username", {
               required: "Username is required",
             })}
@@ -86,7 +84,6 @@ const Register = () => {
             label="Email"
             type="email"
             className="w-full"
-            placeholder="Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -106,7 +103,6 @@ const Register = () => {
             label="Password"
             type="password"
             className="w-full"
-            placeholder="Password"
             {...register("password", {
               required: "Password is required.",
               minLength: {
@@ -129,9 +125,12 @@ const Register = () => {
             {isLoading ? "Registering your account" : "Register your account"}
           </Button>
         </form>
-        <div className="text-center mt-6">
+        <div className="text-center mt-6 text-dark dark:text-light">
           Already have an account?{" "}
-          <Link to="/login" className="text-accent hover:underline font-medium">
+          <Link
+            to="/login"
+            className="text-accent dark:text-accentDark hover:underline font-medium"
+          >
             Login now
           </Link>
         </div>

@@ -19,13 +19,13 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex items-center justify-between py-4 px-10 max-sm:px-4 max-w-[1320px] mx-auto">
+    <header className="w-full flex items-center justify-between py-4 px-10 max-md:px-4 max-w-[1320px] mx-auto">
       <Link to="/">
         <Logo />
       </Link>
 
       <nav
-        className="max-md:hidden flex items-center justify-center gap-3 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
+        className="max-lg:hidden flex items-center justify-center gap-3 px-8 py-3 bg-light/80 backdrop-blur-sm rounded-full border border-dark
       fixed top-6 right-1/2 translate-x-1/2 font-medium capitalize z-50 "
       >
         {navItems.map((item) => (
@@ -47,7 +47,7 @@ const Header = () => {
         </button>
       </nav>
 
-      <div className="max-md:hidden flex items-center justify-center gap-4 ">
+      <div className="max-lg:hidden flex items-center justify-center gap-4 ">
         {authStatus ? (
           <ProfileDropdown />
         ) : (
@@ -71,7 +71,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Navigation Items */}
-      <div className="flex items-center gap-6 md:hidden">
+      <div className="flex items-center gap-6 lg:hidden">
         <button
           className={`${
             mode === "light" ? "bg-dark" : "bg-light"

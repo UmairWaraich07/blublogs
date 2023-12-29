@@ -46,10 +46,10 @@ const Login = () => {
         <div className="w-full flex items-center justify-center ">
           <Logo />
         </div>
-        <div className="text-dark text-3xl font-bold text-center">
+        <div className="text-dark dark:text-light text-3xl font-bold text-center">
           Login to your account
         </div>
-        <p className="text-gray text-sm mt-2 text-center">
+        <p className="text-gray dark:text-light/80 text-sm mt-2 text-center">
           Welcome back! Please enter your details
         </p>
         <form
@@ -60,7 +60,6 @@ const Login = () => {
             label="Email"
             type="email"
             className="w-full"
-            placeholder="Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -77,7 +76,6 @@ const Login = () => {
             label="Password"
             type="password"
             className="w-full"
-            placeholder="Password"
             {...register("password", {
               required: "Password is required.",
               minLength: {
@@ -100,11 +98,11 @@ const Login = () => {
           </Button>
         </form>
 
-        <div className="text-center mt-6">
+        <div className="text-center text-dark dark:text-light mt-6">
           Don&apos;t have an account?{" "}
           <Link
             to="/register"
-            className="text-accent hover:underline font-medium"
+            className="text-accent dark:text-accentDark hover:underline font-medium"
           >
             Create one new
           </Link>

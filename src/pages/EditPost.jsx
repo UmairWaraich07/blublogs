@@ -27,11 +27,15 @@ const EditPost = () => {
     })();
   }, [id, navigate]);
   return loader ? (
-    <h1 className="text-6xl text-dark font-bold h-[90vh]">Loading....</h1>
+    <h1 className="text-6xl text-dark dark:text-light font-bold h-[90vh]">
+      Loading....
+    </h1>
   ) : (
     <div className="w-full mt-8">
       <Container>
-        <h1 className="text-3xl font-bold">Edit your blog post : {id}</h1>
+        <h1 className="text-3xl font-bold dark:text-light">
+          Edit your blog post
+        </h1>
         {/* Pass the post to the PostForm component */}
         <PostForm post={post} />
       </Container>
