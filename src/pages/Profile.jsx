@@ -41,7 +41,7 @@ const Profile = () => {
       <Container>
         <div className="">
           <div className="w-full flex max-sm:flex-col-reverse items-start justify-between gap-8 max-sm:gap-2">
-            <div className="flex max-md:flex-col gap-6 px-20 max-md:px-2">
+            <div className="flex max-md:flex-col gap-6 px-20 max-md:px-2 max-lg:px-10">
               <ProfileInfo userData={userInfo} />
             </div>
             {userData?.$id === userInfo?.$id && (

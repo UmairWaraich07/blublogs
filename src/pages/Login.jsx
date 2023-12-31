@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { login } from "../store/authSlice";
 
 const Login = () => {
@@ -13,6 +13,9 @@ const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [searchParams] = useSearchParams();
+  const message = searchParams.get("message");
+  const pathname = searchParams.get("redirectTo") || "/";
 
   const {
     register,
@@ -29,7 +32,7 @@ const Login = () => {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login(userData));
-          navigate("/");
+          navigate(pathname, { replace: true });
         }
       }
     } catch (error) {
@@ -49,8 +52,8 @@ const Login = () => {
         <div className="text-dark dark:text-light text-3xl font-bold text-center">
           Login to your account
         </div>
-        <p className="text-gray dark:text-light/80 text-sm mt-2 text-center">
-          Welcome back! Please enter your details
+        <p className="text-gray dark:text-light/80 text-base font-medium mt-2 text-center">
+          {message ? message : "Welcome back! Please enter your details"}
         </p>
         <form
           onSubmit={handleSubmit(sumbit)}

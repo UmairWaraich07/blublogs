@@ -73,7 +73,10 @@ const Categories = () => {
           </p>
         </div>
 
-        <div className="mt-10 max-sm:mt-8 border-t-2 border-t-dark dark:border-t-light border-b-2 border-b-dark dark:border-b-light px-20 max-sm:px-0 py-6 max-sm:py-4">
+        <div
+          className="mt-10 max-sm:mt-8 border-t-2 border-t-dark dark:border-t-light border-b-2 border-b-dark dark:border-b-light px-20 max-sm:px-0
+        max-md:px-2 max-lg:px-10 py-6 max-sm:py-4"
+        >
           <div className="flex items-center flex-wrap gap-4 max-sm:gap-3">
             <Tag
               key="all"
@@ -100,7 +103,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
+        <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2 max-lg:px-10">
           {categoryPostLoader ? (
             <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
           ) : (

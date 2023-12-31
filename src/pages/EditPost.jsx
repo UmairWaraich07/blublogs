@@ -1,13 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Container, PostForm } from "../components";
 import { useEffect, useState } from "react";
 import configService from "../appwrite/config";
+import { useSelector } from "react-redux";
 
 const EditPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
   const [post, setPost] = useState({});
+  const { userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
@@ -26,6 +28,9 @@ const EditPost = () => {
       }
     })();
   }, [id, navigate]);
+
+  if (userData?.$id !== post?.authorId?.$id) return <Navigate to="/" />;
+
   return loader ? (
     <h1 className="text-6xl text-dark dark:text-light font-bold h-[90vh]">
       Loading....

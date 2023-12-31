@@ -25,22 +25,28 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      console.log("fetching home posts");
-      const data = await configService.getPosts(
-        [Query.equal("status", "active")],
-        page ? page : 1,
-        limit
-      );
-      setPostData(data.documents);
-      setTotalPosts(data.total);
-      dispatch(setPosts(data.documents));
+      try {
+        console.log("fetching home posts");
+        const data = await configService.getPosts(
+          [Query.equal("status", "active")],
+          page ? page : 1,
+          limit
+        );
+        setPostData(data.documents);
+        setTotalPosts(data.total);
+        dispatch(setPosts(data.documents));
+      } catch (error) {
+        console.log(`Error while fetching home posts : ${error}`);
+        throw new Error(error.message);
+      }
     };
 
-    // if (!posts || posts?.length === 0) {
-    fetchPosts();
+    if (!postData || postData?.length === 0) {
+      fetchPosts();
+    }
 
     setLoader(false);
-  }, [dispatch, page]);
+  }, [dispatch, page, postData]);
 
   return loader ? (
     <h1 className="text-6xl text-dark dark:text-light font-bold">Loading...</h1>
@@ -48,7 +54,7 @@ const Home = () => {
     <div className="w-full">
       <Container>
         <HomeCoverSection post={posts[0]} />
-        <section className="w-full mt-24 px-20 max-md:px-2">
+        <section className="w-full mt-24 px-20 max-md:px-2 max-lg:px-10">
           <div className="w-full flex items-center justify-between">
             <h2 className="text-3xl max-sm:text-2xl font-bold text-dark dark:text-light">
               Recent Posts

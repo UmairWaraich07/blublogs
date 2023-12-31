@@ -20,6 +20,8 @@ import {
   EditPost,
   EditProfile,
   Blog,
+  NotFound,
+  Error,
 } from "./pages/index.js";
 import {
   ProfilePosts,
@@ -32,7 +34,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<RootLayout />}>
+      <Route path="/" element={<RootLayout />} errorElement={<Error />}>
         <Route
           index
           element={
@@ -94,6 +96,8 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </>
   )

@@ -7,6 +7,8 @@ import Profile from "./Profile";
 import EditPost from "./EditPost";
 import EditProfile from "./EditProfile";
 import Blog from "./Blog";
+import NotFound from "./NotFound";
+import Error from "./Error";
 
 export {
   Home,
@@ -18,4 +20,6 @@ export {
   EditPost,
   EditProfile,
   Blog,
+  NotFound,
+  Error,
 };

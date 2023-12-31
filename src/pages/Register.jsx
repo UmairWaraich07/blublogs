@@ -28,7 +28,7 @@ const Register = () => {
         console.log({ userData });
         if (userData) {
           dispatch(login(userData));
-          navigate("/");
+          navigate("/", { replace: true });
         }
       }
     } catch (error) {

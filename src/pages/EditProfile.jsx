@@ -4,8 +4,9 @@ import { useForm } from "react-hook-form";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import userService from "../appwrite/user";
 import { Query } from "appwrite";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import fileService from "../appwrite/file";
+import { useSelector } from "react-redux";
 
 const EditProfile = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -13,6 +14,7 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loader, setLoader] = useState(true);
   const [profileData, setProfileData] = useState({});
+  const { userData } = useSelector((state) => state.auth);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -126,8 +128,11 @@ const EditProfile = () => {
       setIsLoading(false);
     }
   };
+
+  if (id !== userData?.$id) return <Navigate to="/" />;
+
   return loader ? (
-    <h1 className="text-6xl font-bold text-dark">Loading...</h1>
+    <h1 className="text-6xl font-bold text-dark dark:text-light">Loading...</h1>
   ) : (
     <div className="w-full mt-8">
       <Container>
