@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { BlogPost, Container, Tag } from "../components/index";
 import { useEffect, useState } from "react";
 import configService from "../appwrite/config";
@@ -6,12 +6,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../store/postSlice";
 import { slug } from "github-slugger";
 
+export const categoriesLoader = async () => {
+  try {
+    const data = await configService.getCategories();
+    return data.documents;
+  } catch (error) {
+    console.log(`Error on fetching categories list : ${error}`);
+    throw new Error(error.message);
+  }
+  // const id = params.id;
+  // if (id === "all") {
+  //   console.log("fetching the posts for all category....");
+
+  //   const data = await configService.getPosts();
+  //   return data.documents;
+  // } else {
+  //   console.log("fetching the posts with other id....");
+
+  //   const data = await configService.getCategory(id);
+  //   const activePosts = data.post.filter((item) => item.status === "active");
+  //   return activePosts;
+  // }
+};
 const Categories = () => {
+  const categories = useLoaderData();
   const dispatch = useDispatch();
-  const [loader, setLoader] = useState(true);
+  // const [loader, setLoader] = useState(true);
   const [categoryPostLoader, setCategoryPostLoader] = useState(true);
   const { id } = useParams();
-  const [categories, setCategories] = useState([]);
+
+  // const [categories, setCategories] = useState([]);
 
   //find the name of the active category using its id
   const activeCategory = categories.filter((category) => category.$id === id);
@@ -23,14 +47,14 @@ const Categories = () => {
 
   const [categoryPosts, setCategoryPosts] = useState(posts || []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await configService.getCategories();
-      if (data) setCategories(data.documents);
-      setLoader(false);
-    };
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await configService.getCategories();
+  //     if (data) setCategories(data.documents);
+  //     setLoader(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     if (!posts || posts?.length === 0) {
@@ -64,7 +88,7 @@ const Categories = () => {
   return (
     <div className="w-full mt-8">
       <Container>
-        <div className="px-20 max-md:px-2">
+        <div className="px-20 max-md:px-2 max-lg:px-10">
           <h1 className="text-6xl max-sm:text-3xl max-md:text-4xl font-semibold text-dark dark:text-light">
             #{slug(activeCategoryName)}
           </h1>
@@ -73,7 +97,10 @@ const Categories = () => {
           </p>
         </div>
 
-        <div className="mt-10 max-sm:mt-8 border-t-2 border-t-dark dark:border-t-light border-b-2 border-b-dark dark:border-b-light px-20 max-sm:px-0 py-6 max-sm:py-4">
+        <div
+          className="mt-10 max-sm:mt-8 border-t-2 border-t-dark dark:border-t-light border-b-2 border-b-dark dark:border-b-light px-20 max-sm:px-0 max-md:px-2
+        max-lg:px-10 py-6 max-sm:py-4"
+        >
           <div className="flex items-center flex-wrap gap-4 max-sm:gap-3">
             <Tag
               key="all"
@@ -83,24 +110,20 @@ const Categories = () => {
               className="!lowercase md:!py-2"
               active={id === "all"}
             />
-            {loader ? (
-              <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
-            ) : (
-              categories?.map((category) => (
-                <Tag
-                  key={category.$id}
-                  link={`/categories/${category.$id}`}
-                  name={`#${slug(category?.name)}`}
-                  border="border-dark dark:border-light"
-                  className="!lowercase md:!py-2 "
-                  active={id === category.$id}
-                />
-              ))
-            )}
+            {categories?.map((category) => (
+              <Tag
+                key={category.$id}
+                link={`/categories/${category.$id}`}
+                name={`#${slug(category?.name)}`}
+                border="border-dark dark:border-light"
+                className="!lowercase md:!py-2 "
+                active={id === category.$id}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
+        <div className="w-full mt-12 grid gap-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2 max-lg:px-10">
           {categoryPostLoader ? (
             <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
           ) : (

@@ -26,6 +26,12 @@ import {
   ProfileSaveds,
   ProtectedRoute,
 } from "./components/index.js";
+import { homeLoader } from "./pages/Home.jsx";
+import { profileLoader } from "./pages/Profile.jsx";
+import { postLoader } from "./pages/Blog.jsx";
+import { editProfileLoader } from "./pages/EditProfile.jsx";
+import { editPostLoader } from "./pages/EditPost.jsx";
+import { categoriesLoader } from "./pages/Categories.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +46,7 @@ const router = createBrowserRouter(
               <Home />
             </ProtectedRoute>
           }
+          loader={homeLoader}
         />
         <Route
           path="blog/:id"
@@ -48,6 +55,7 @@ const router = createBrowserRouter(
               <Blog />
             </ProtectedRoute>
           }
+          loader={postLoader}
         />
         <Route
           path="add-post"
@@ -64,6 +72,7 @@ const router = createBrowserRouter(
               <Categories />
             </ProtectedRoute>
           }
+          loader={categoriesLoader}
         />
         <Route
           path="profile/:id"
@@ -72,6 +81,7 @@ const router = createBrowserRouter(
               <Profile />
             </ProtectedRoute>
           }
+          loader={profileLoader}
         >
           <Route index element={<ProfilePosts />} />
           <Route path="saved" element={<ProfileSaveds />} />
@@ -84,6 +94,7 @@ const router = createBrowserRouter(
               <EditProfile />
             </ProtectedRoute>
           }
+          loader={editProfileLoader}
         />
 
         <Route
@@ -93,6 +104,7 @@ const router = createBrowserRouter(
               <EditPost />
             </ProtectedRoute>
           }
+          loader={editPostLoader}
         />
       </Route>
     </>

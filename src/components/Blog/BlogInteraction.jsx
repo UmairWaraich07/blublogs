@@ -46,6 +46,7 @@ const BlogInteraction = ({ postData, setPostData }) => {
       });
       if (updatedPost) {
         setHasLiked((prevState) => !prevState);
+        console.log({ updatedPost });
         setPostData(updatedPost);
       }
     } catch (error) {

@@ -4,15 +4,26 @@ import { useForm } from "react-hook-form";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import userService from "../appwrite/user";
 import { Query } from "appwrite";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import fileService from "../appwrite/file";
 
+export const editProfileLoader = async ({ params }) => {
+  try {
+    console.log("fetching the edit profile data using editProfileLoader");
+    return await userService.getUser([Query.equal("$id", [params.id])]);
+  } catch (error) {
+    console.log(`Error on fetching logged in data : ${error}`);
+    throw new Error(error.message);
+  }
+};
 const EditProfile = () => {
+  const user = useLoaderData();
+  const profileData = user.documents[0];
   const [previewImage, setPreviewImage] = useState(null);
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [loader, setLoader] = useState(true);
-  const [profileData, setProfileData] = useState({});
+  // const [loader, setLoader] = useState(true);
+  // const [profileData, setProfileData] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -32,13 +43,13 @@ const EditProfile = () => {
     },
   });
 
-  useEffect(() => {
-    (async () => {
-      const user = await userService.getUser([Query.equal("$id", [id])]);
-      setProfileData(user.documents[0]);
-      setLoader(false);
-    })();
-  }, [id]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const user = await userService.getUser([Query.equal("$id", [id])]);
+  //     setProfileData(user.documents[0]);
+  //     setLoader(false);
+  //   })();
+  // }, [id]);
 
   useEffect(() => {
     if (profileData) {
@@ -126,9 +137,7 @@ const EditProfile = () => {
       setIsLoading(false);
     }
   };
-  return loader ? (
-    <h1 className="text-6xl font-bold text-dark">Loading...</h1>
-  ) : (
+  return (
     <div className="w-full mt-8">
       <Container>
         <h1 className="text-3xl font-bold dark:text-light">Edit Profile</h1>

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useCallback, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import configService from "../appwrite/config";
 import {
   BlogContent,
@@ -10,10 +10,22 @@ import {
   WriitenBy,
 } from "../components";
 
+export const postLoader = async ({ params }) => {
+  try {
+    console.log("fetching blog post using postLoader");
+    return await configService.getPost(params.id);
+  } catch (error) {
+    console.log(`Error on fetching the post Data : ${error}`);
+    throw new Error(error.message);
+  }
+};
+
 const Blog = () => {
-  const [postData, setPostData] = useState({});
-  const navigate = useNavigate();
-  const [loader, setLoader] = useState(true);
+  const data = useLoaderData();
+  const [postData, setPostData] = useState(data);
+
+  // const navigate = useNavigate();
+  // const [loader, setLoader] = useState(true);
   const [isViewIncremented, setIsViewIncremented] = useState(false); // Track view increment
   const { id } = useParams();
 
@@ -27,34 +39,35 @@ const Blog = () => {
     }
   }, [id, postData.views]);
 
-  useEffect(() => {
-    const fetchPostAndIncrement = async () => {
-      try {
-        const data = await configService.getPost(id);
-        if (data) {
-          setPostData(data);
-        } else {
-          navigate("/");
-        }
-        // increment the view count when post data is loaded
-        if (!isViewIncremented && postData.views !== undefined) {
-          incrementViewCount();
-          setIsViewIncremented(true);
-        }
-      } catch (error) {
-        throw new Error(error.message);
-      } finally {
-        setLoader(false);
-      }
-    };
-    fetchPostAndIncrement();
-  }, [id, navigate, isViewIncremented, postData.views, incrementViewCount]);
+  if (!isViewIncremented && postData.views !== undefined) {
+    incrementViewCount();
+    setIsViewIncremented(true);
+  }
 
-  return loader ? (
-    <h1 className="text-6xl font-bold text-dark dark:text-light h-[70vh]">
-      Loading...
-    </h1>
-  ) : (
+  // useEffect(() => {
+  //   const fetchPostAndIncrement = async () => {
+  //     try {
+  //       const data = await configService.getPost(id);
+  //       if (data) {
+  //         setPostData(data);
+  //       } else {
+  //         navigate("/");
+  //       }
+  //       // increment the view count when post data is loaded
+  //       if (!isViewIncremented && postData.views !== undefined) {
+  //         incrementViewCount();
+  //         setIsViewIncremented(true);
+  //       }
+  //     } catch (error) {
+  //       throw new Error(error.message);
+  //     } finally {
+  //       setLoader(false);
+  //     }
+  //   };
+  //   fetchPostAndIncrement();
+  // }, [id, navigate, isViewIncremented, postData.views, incrementViewCount]);
+
+  return (
     <article className="w-full max-sm:mt-4">
       <BlogCover blog={postData} />
       <Container>

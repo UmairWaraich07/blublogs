@@ -30,13 +30,17 @@ const ProfileSaveds = () => {
   }, [userInfo.savedPosts]);
 
   return loader ? (
-    <h1 className="text-2xl text-dark">Loading...</h1>
+    <h1 className="text-2xl text-dark dark:text-light font-semibold">
+      Loading...
+    </h1>
   ) : (
-    <div className="w-full mt-10 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
+    <div className="w-full mt-10 grid gap-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2">
       {savedPosts.length > 0 ? (
         savedPosts.map((post) => <BlogPost key={post.$id} post={post} />)
       ) : (
-        <div>No saved Post</div>
+        <div className="text-dark dark:text-light font-medium ">
+          No saved Posts
+        </div>
       )}
     </div>
   );
