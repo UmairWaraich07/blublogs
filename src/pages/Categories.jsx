@@ -91,8 +91,8 @@ const Categories = () => {
               <div className="flex items-center justify-center">
                 <Loader
                   className={`fill-dark text-dark  dark:fill-light dark:text-light`}
-                  width={24}
-                  height={24}
+                  width={37}
+                  height={37}
                 />
               </div>
             ) : (

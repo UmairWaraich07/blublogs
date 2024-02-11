@@ -8,6 +8,7 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Loader } from "./Icons";
 import { Logo } from "./components";
+import ScrollToTop from "./components/ScrollToTop";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,9 @@ const RootLayout = () => {
     <>
       <Header />
       <main>
-        <Outlet />
+        <ScrollToTop>
+          <Outlet />
+        </ScrollToTop>
       </main>
       <Footer />
     </>
@@ -51,11 +54,11 @@ const RootLayout = () => {
       <div className="flex items-center justify-center">
         <Loader
           className={`fill-dark text-dark  dark:fill-light dark:text-light`}
-          width={100}
-          height={100}
+          width={128}
+          height={128}
         />
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo />
+          <Logo width={128} />
         </div>
       </div>
     </div>
