@@ -7,6 +7,7 @@ import { Query } from "appwrite";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import fileService from "../appwrite/file";
 import { useSelector } from "react-redux";
+import { Loader } from "../Icons";
 
 const EditProfile = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -132,7 +133,13 @@ const EditProfile = () => {
   if (id !== userData?.$id) return <Navigate to="/" />;
 
   return loader ? (
-    <h1 className="text-6xl font-bold text-dark dark:text-light">Loading...</h1>
+    <div className="flex items-center justify-center h-[70vh]">
+      <Loader
+        className={`fill-dark text-dark dark:fill-light dark:text-light`}
+        width={100}
+        height={100}
+      />
+    </div>
   ) : (
     <div className="w-full mt-8">
       <Container>

@@ -9,6 +9,7 @@ import {
   Container,
   WriitenBy,
 } from "../components";
+import { Loader } from "../Icons";
 
 const Blog = () => {
   const [postData, setPostData] = useState({});
@@ -51,9 +52,13 @@ const Blog = () => {
   }, [id, navigate, isViewIncremented, postData.views, incrementViewCount]);
 
   return loader ? (
-    <h1 className="text-6xl font-bold text-dark dark:text-light h-[70vh]">
-      Loading...
-    </h1>
+    <div className="flex items-center justify-center h-[70vh]">
+      <Loader
+        className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+        width={100}
+        height={100}
+      />
+    </div>
   ) : (
     <article className="w-full max-sm:mt-4">
       <BlogCover blog={postData} />

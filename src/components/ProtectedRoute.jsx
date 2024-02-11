@@ -1,7 +1,7 @@
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Loader } from "../Icons";
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ authentication = false, children }) => {
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ authentication = false, children }) => {
   return loader ? (
     <div className="h-screen grid place-content-center">
       <div>
-        <ReloadIcon className="w-16 h-16 text-dark animate-spin" />
+        <Loader />
       </div>
     </div>
   ) : (

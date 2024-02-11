@@ -3,6 +3,7 @@ import { Container, PostForm } from "../components";
 import { useEffect, useState } from "react";
 import configService from "../appwrite/config";
 import { useSelector } from "react-redux";
+import { Loader } from "../Icons";
 
 const EditPost = () => {
   const { id } = useParams();
@@ -32,9 +33,13 @@ const EditPost = () => {
   if (userData?.$id !== post?.authorId?.$id) return <Navigate to="/" />;
 
   return loader ? (
-    <h1 className="text-6xl text-dark dark:text-light font-bold h-[90vh]">
-      Loading....
-    </h1>
+    <div className="flex items-center justify-center h-[70vh]">
+      <Loader
+        className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+        width={100}
+        height={100}
+      />
+    </div>
   ) : (
     <div className="w-full mt-8">
       <Container>

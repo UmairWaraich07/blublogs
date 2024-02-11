@@ -12,6 +12,7 @@ import { Query } from "appwrite";
 import { useNavigate } from "react-router-dom";
 import { updateUserData } from "../../store/authSlice";
 import configService from "../../appwrite/config";
+import { Loader } from "../../Icons";
 
 const BlogInteraction = ({ postData, setPostData }) => {
   const dispatch = useDispatch();
@@ -72,7 +73,13 @@ const BlogInteraction = ({ postData, setPostData }) => {
   };
 
   return loader ? (
-    <h1 className="text-2xl text-dark">Loading...</h1>
+    <div className="flex items-center justify-center h-[70vh]">
+      <Loader
+        className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+        width={24}
+        height={24}
+      />
+    </div>
   ) : (
     <div className="py-3 px-10 max-sm:px-4 border-t-[1.5px] dark:border-t border-b-[1.5px] dark:border-b border-dark/10 dark:border-light flex items-center gap-10">
       <div

@@ -10,6 +10,7 @@ import {
 } from "../components/index";
 import { Link, useSearchParams } from "react-router-dom";
 import { Query } from "appwrite";
+import { Loader } from "../Icons";
 
 const Home = () => {
   const limit = 9;
@@ -49,7 +50,13 @@ const Home = () => {
   }, [dispatch, page, postData]);
 
   return loader ? (
-    <h1 className="text-6xl text-dark dark:text-light font-bold">Loading...</h1>
+    <div className="flex items-center justify-center h-[70vh]">
+      <Loader
+        className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+        width={100}
+        height={100}
+      />
+    </div>
   ) : (
     <div className="w-full">
       <Container>

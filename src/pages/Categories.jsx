@@ -5,6 +5,7 @@ import configService from "../appwrite/config";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../store/postSlice";
 import { slug } from "github-slugger";
+import { Loader } from "../Icons";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -87,7 +88,13 @@ const Categories = () => {
               active={id === "all"}
             />
             {loader ? (
-              <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
+              <div className="flex items-center justify-center">
+                <Loader
+                  className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+                  width={24}
+                  height={24}
+                />
+              </div>
             ) : (
               categories?.map((category) => (
                 <Tag
@@ -105,7 +112,13 @@ const Categories = () => {
 
         <div className="w-full mt-12 grid gap-14 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 max-md:px-2 max-lg:px-10">
           {categoryPostLoader ? (
-            <h1 className="text-xl text-dark dark:text-light">Loading...</h1>
+            <div className="flex items-center justify-center ">
+              <Loader
+                className={`fill-dark text-dark  dark:fill-light dark:text-light`}
+                width={48}
+                height={48}
+              />
+            </div>
           ) : (
             categoryPosts?.map((post) => (
               <BlogPost key={post?.$id} post={post} />
