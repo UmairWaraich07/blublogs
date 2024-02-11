@@ -1,14 +1,16 @@
-import Home from "./Home";
-import AddPost from "./AddPost";
-import Categories from "./Categories";
-import Login from "./Login";
-import Register from "./Register";
-import Profile from "./Profile";
-import EditPost from "./EditPost";
-import EditProfile from "./EditProfile";
-import Blog from "./Blog";
-import NotFound from "./NotFound";
-import Error from "./Error";
+import { lazy } from "react";
+
+const Home = lazy(() => import("./Home"));
+const AddPost = lazy(() => import("./AddPost"));
+const Categories = lazy(() => import("./Categories"));
+const Login = lazy(() => import("./Login"));
+const Register = lazy(() => import("./Register"));
+const Profile = lazy(() => import("./Profile"));
+const EditPost = lazy(() => import("./EditPost"));
+const EditProfile = lazy(() => import("./EditProfile"));
+const Blog = lazy(() => import("./Blog"));
+const NotFound = lazy(() => import("./NotFound"));
+const Error = lazy(() => import("./Error"));
 
 export {
   Home,

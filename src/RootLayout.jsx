@@ -1,14 +1,13 @@
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { darkMode, lightMode } from "./store/themeSlice";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
-import { Loader } from "./Icons";
-import { Logo } from "./components";
 import ScrollToTop from "./components/ScrollToTop";
+import Loading from "./pages/Loading";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -43,25 +42,16 @@ const RootLayout = () => {
     <>
       <Header />
       <main>
-        <ScrollToTop>
-          <Outlet />
-        </ScrollToTop>
+        <Suspense fallback={<Loading />}>
+          <ScrollToTop>
+            <Outlet />
+          </ScrollToTop>
+        </Suspense>
       </main>
       <Footer />
     </>
   ) : (
-    <div className="h-screen grid place-content-center relative">
-      <div className="flex items-center justify-center">
-        <Loader
-          className={`fill-dark text-dark  dark:fill-light dark:text-light`}
-          width={128}
-          height={128}
-        />
-        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo width={128} />
-        </div>
-      </div>
-    </div>
+    <Loading />
   );
 };
 
