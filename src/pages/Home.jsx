@@ -17,6 +17,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const { posts } = useSelector((state) => state.posts);
+
   const activePosts = posts.filter((item) => item.status === "active");
   const [postData, setPostData] = useState(activePosts || []);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -24,30 +25,29 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        console.log("fetching home posts");
-        const data = await configService.getPosts(
-          [Query.equal("status", "active")],
-          page ? page : 1,
-          limit
-        );
-        setPostData(data.documents);
-        setTotalPosts(data.total);
-        dispatch(setPosts(data.documents));
-      } catch (error) {
-        console.log(`Error while fetching home posts : ${error}`);
-        throw new Error(error.message);
-      }
-    };
-
-    if (!postData || postData?.length === 0) {
-      fetchPosts();
+  const fetchPosts = async () => {
+    try {
+      console.log("fetching home posts");
+      const data = await configService.getPosts(
+        [Query.equal("status", "active")],
+        page ? page : 1,
+        limit
+      );
+      console.log({ data });
+      setPostData(data.documents);
+      setTotalPosts(data.total);
+      dispatch(setPosts(data.documents));
+    } catch (error) {
+      console.log(`Error while fetching home posts : ${error}`);
+      throw new Error(error.message);
     }
+  };
+
+  useEffect(() => {
+    fetchPosts();
 
     setLoader(false);
-  }, [dispatch, page, postData]);
+  }, [page, dispatch]);
 
   return loader ? (
     <div className="flex items-center justify-center h-[70vh]">
@@ -84,7 +84,7 @@ const Home = () => {
         <Pagination
           currentPage={page ? page : 1}
           totalPages={Math.ceil(totalPosts / limit)}
-          setSearchParams={setSearchParams} // Assuming a limit of 8 posts per page
+          setSearchParams={setSearchParams} // Assuming a limit of 9 posts per page
         />
       </Container>
     </div>
