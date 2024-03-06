@@ -56,7 +56,7 @@ export const RTE = ({ name, label, control, defaultValue }) => {
               content_style:
                 "body { font-family:Inter, sans-serif; font-size:14px }",
             }}
-            initialValue={defaultValue || ""}
+            initialValue={defaultValue ? defaultValue : ""}
             onEditorChange={onChange}
           />
         )}
