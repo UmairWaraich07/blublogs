@@ -16,6 +16,7 @@ const PostForm = ({ post }) => {
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log({ post });
   const {
     register,
     watch,
@@ -27,12 +28,12 @@ const PostForm = ({ post }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
-      slug: "",
-      content: "",
+      title: post ? post?.title : "",
+      slug: post ? post?.slug : "",
+      content: post ? post?.content : "",
       image: null,
-      status: "active",
-      category: "",
+      status: post ? post?.status : "active",
+      category: post ? post?.category : "",
     },
   });
 
